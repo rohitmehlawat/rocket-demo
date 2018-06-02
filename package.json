@@ -1,0 +1,28 @@
+{
+  "name": "lassapi",
+  "version": "1.0.0",
+  "description": "lass api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-winston": "^2.5.1",
+    "fs": "0.0.1-security",
+    "helmet": "^3.12.1",
+    "http-errors": "~1.6.2",
+    "jsonschema": "^1.2.4",
+    "morgan": "~1.9.0",
+    "request-ip": "^2.0.2",
+    "rotating-file-stream": "^1.3.6",
+    "sybase": "^1.2.1",
+    "winston": "^2.4.2"
+  }
+}
