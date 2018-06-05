@@ -33,6 +33,9 @@ var getFormatter = function(isPretty)  {
 
 function bind(app, level, directory, fileName, rotatingStrategy, isPretty) {
 
+    expressWinston.requestWhitelist.push('body');
+    expressWinston.responseWhitelist.push('body');
+
     var logDirectory = path.join(__dirname, "/../"+directory);
 
     // ensure log directory exists

@@ -4,7 +4,7 @@ const Q = require('q');
 db = new SyBase([
     {
         name: 'main',
-        host: 'localhost',
+        host: '192.168.1.178',
         port: 32768,
         dbname: 'testdb?charset=cp936',
         username: 'tester',
@@ -14,7 +14,7 @@ db = new SyBase([
 
 // ----db connection
 
-exports.connect = function (query, callback) {
+exports.connect = function (query) {
     var defer = Q.defer();
     db.DBPools.main.execute(
         query

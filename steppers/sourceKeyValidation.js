@@ -9,10 +9,16 @@ exports.validateSourceKey = function (req, res, next) {
         .then((result) => {
             console.log("Result ------>>>>> " + result);
             if (result[0].returnCode == 'True') {
-                next();
+                res.send({
+                    response : 'success'
+                }
+                    );
             }
             else {
-                res.send("api_source_key is invalid");
+                res.send({
+                        response : 'invalid'
+                    }
+                );
             }
         })
         .catch((err) => {

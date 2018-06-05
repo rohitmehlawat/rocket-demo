@@ -22,7 +22,6 @@ var invokeAllParameter=require("../steppers/invokeAllParameter");
 
 
 var responseData=require("../utils/response");
-var router=express.Router();
 
 exports.post=function(url, app){
 

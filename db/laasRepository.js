@@ -1,11 +1,11 @@
-var db = require("../db/db");
+var db = require("./db");
 var Q = require("q");
 
 exports.validateData = function (laasData) {
     var defer=Q.defer();
     console.log("in database method name--> validateData");
 
-    db.connect("validateLaasData " + lassData)
+    db.connect("validateLaasData " + laasData)
         .then((result)=>{
            defer.resolve(result);
         })
@@ -22,9 +22,12 @@ exports.validateSourceKey = function (api_source_key) {
     console.log("in database method name --> validate Source Key  " + api_source_key);
     db.connect("p_validateSourceKey " + api_source_key)
         .then((result) => {
+            console.log(" Result ------------" + result);
             defer.resolve(result);
         })
         .catch((err) => {
+
+            console.log( "  Errorroro ------- " + err);
             defer.reject(err);
         });
     return defer.promise;
