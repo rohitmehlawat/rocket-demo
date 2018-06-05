@@ -4,7 +4,13 @@ exports.getProductCode=function(req,res,next){
 
     console.log("in steppers --> getProductCode method");
     const txnTypeId=req.body.txntypeid;
-    const productCode=laasRepository.getProductCode(txnTypeId);
-    res.locals.productCode=productCode;
-    next();
+    laasRepository.getProductCode(txnTypeId)
+        .then((result)=>{
+            res.locals.productCode=result;
+            next();
+        })
+        .catch((err)=>{
+
+        });
+
 };

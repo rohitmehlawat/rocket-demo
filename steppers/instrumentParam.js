@@ -2,15 +2,21 @@ var laasRepository=require("../db/laasRepository");
 
 exports.getInstrumentType=function(req,res,next){
 
-    console.log("in steppers ---> getting instrument type");
+    if(res.locals.executeInstrumentParam) {
 
-    const txnTypeId=req.body.txntypeid;
+        console.log("in steppers ---> getting instrument type");
 
-    var instrumentParam=laasRepository.getInstrumentType(txnTypeId);
+        const txnTypeId = req.body.txntypeid;
 
-    res.locals.instrumentParam=instrumentParam;
+        laasRepository.getInstrumentType(txnTypeId)
+            .then((result)=>{
+                res.locals.instrumentParam = instrumentParam;
+            })
+            .catch((err)=>{
+
+            });
+
+
+    }
     next();
-
-
-
 };

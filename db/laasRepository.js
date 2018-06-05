@@ -2,11 +2,18 @@ var db = require("../db/db");
 var Q = require("q");
 
 exports.validateData = function (laasData) {
+    var defer=Q.defer();
     console.log("in database method name--> validateData");
 
-    var isValid = db.connect("validateLaasData" + lassData);
+    db.connect("validateLaasData " + lassData)
+        .then((result)=>{
+           defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
 
-    return isValid;
+    return defer.promise;
 
 };
 
@@ -24,59 +31,122 @@ exports.validateSourceKey = function (api_source_key) {
 };
 
 exports.validateIP = function (request_ip) {
+    var defer=Q.defer();
     console.log("in database method name -->  Validate IP  " + request_ip);
-    var isValid = db.connect("validateIP");
-    return isValid;
+    db.connect("validateIP "+request_ip)
+        .then((result)=>{
+            defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
+    return defer.promise;
 };
 
 exports.authenticateUsers = function (username, password) {
-
+    var defer=Q.defer();
     console.log("in database method name  --> authenticate Users  " + username + " " + password);
-    var isValid = db.connect("validateUser");
-    return isValid;
+    db.connect("validateUser")
+        .then((result)=>{
+            defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
+    return defer.promise;
 };
 
 exports.getProductCode = function (txnTypeId) {
+    var defer=Q.defer();
     console.log("in database method name  ---> get Product Code " + txnTypeId);
-    var productCode = db.connect("product Code");
-    return 1;
+    db.connect("productCode"+ txnTypeId)
+        .then((result)=>{
+            defer.resolve(result);
+        })
+        .catch((err)=>{
+           defer.reject(err);
+        });
+    return defer.promise;
 };
 
 exports.getSPName = function (ssid, txnTypeId, productCode) {
+    var defer=Q.defer();
     console.log("in database method name  ---> get SPName  " + txnTypeId);
-    var SPName = db.connect("SP Name");
-    return "XYZ";
+    db.connect("SPName "+ssid +" "+ txnTypeId+" " + productCode)
+        .then((result)=>{
+            defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
+    return defer.promise;
 };
 
 exports.getParamters = function (ssid, txnTypeId, productCode) {
-
+    var defer=Q.defer();
     console.log("in database method name  ---> get Parameters" + txnTypeId);
-    var parameters = db.connect("SPParamter and API Parameter");
+    db.connect("SPParamter and API Parameter")
+        .then((result)=>{
+            defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
 
-    return parameters;
+    return defer.promise;
 };
 
 exports.getInstrumentType = function (txnTypeId) {
+    var defer=Q.defer();
     console.log("in database method name ---> getInstrumentType");
-    var instrumentType = db.connect("instrumentType");
-    return instrumentType;
+    db.connect("instrumentType "+txnTypeId)
+        .then((result)=>{
+            defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
+    return defer.promise;
 };
 
 exports.getPaymentMode = function (paymentModeRef) {
+    var defer=Q.defer();
     console.log("in database method name  ---> get paymentMode" + paymentModeRef);
-    var paymentMode = db.connect("paymentMode");
-    return paymentMode;
+    db.connect("paymentMode "+paymentModeRef)
+        .then((result)=>{
+            defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
+    return defer.promise;
 
 };
 
-exports.invokeSPParamter = function (spParameters) {
+exports.invokeSPParamter = function (spParameters,instrumentParam,paymentMode) {
+    var defer=Q.defer();
     console.log("in database method name --> invoke SPParameter procedure");
-    var response = db.connect("invokeSPParamter");
-    return response;
+    db.connect("invokeSPParamter "+ spParameters +" "+ instrumentParam+ " "+paymentMode)
+        .then((result)=>{
+            defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
+
+    return defer.promise;
 };
 
 exports.invokeAllParameter = function (spParameters, laasData) {
+    var defer=Q.defer();
     console.log("in database method name --> invoke ALLParameters procedure");
-    var response = db.connect("invokeSPParamter");
-    return response;
+    db.connect("invokeSPParamter "+ spParameters +" "+laasData)
+        .then((result)=>{
+           defer.resolve(result);
+        })
+        .catch((err)=>{
+            defer.reject(err);
+        });
+
+    return defer.promise;
 };

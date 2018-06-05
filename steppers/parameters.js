@@ -10,11 +10,16 @@ exports.getSPParamters=function(req,res,next){
 
     const txnTypeId=req.body.txntypeid;
 
-    var parameters=laasRepository.getParamters(ssid,txnTypeId,productCode);
+    laasRepository.getParamters(ssid,txnTypeId,productCode)
+        .then((result)=>{
+            res.locals.parameters=result;
+            next();
+        })
+        .catch((err)=>{
 
-    res.locals.parameters=parameters;
+        });
 
-    next();
+
 
 
 };

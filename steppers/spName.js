@@ -10,10 +10,16 @@ exports.getSPName=function(req,res,next){
 
     const txnTypeId=req.body.txntypeid;
 
-    var SPName=laasRepository.getSPName(ssid,txnTypeId,productCode);
+    laasRepository.getSPName(ssid,txnTypeId,productCode)
+        .then((result)=>{
+            res.locals.spName=result;
+            next();
+        })
+        .catch((err)=>{
 
-    res.locals.spName=SPName;
+        });
 
-    next();
+
+
 
 };

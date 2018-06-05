@@ -8,10 +8,12 @@ exports.checkAPIParameter=function(req,res,next){
     const isPaymentModeRef=req.body.hasOwnProperty("PaymentModeRef");
 
     if(isTxnTypeId || isPaymentModeRef){
-        next(instrumentParam);
+        res.locals.executeInstrumentParam = true;
+        next();
     }
     else{
-        next(invokeAllParameter);
+        res.locals.executeInstrumentParam = false;
+        next();
 
     }
 

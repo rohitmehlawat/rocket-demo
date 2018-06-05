@@ -28,11 +28,11 @@ exports.post=function(url, app){
 
     app.use(schemaValidator.validateSchema);
 
-    //app.use(dataValidation.validateData);
+    app.use(dataValidation.validateData);
 
     app.use(sourceKeyValidation.validateSourceKey);
 
-    /*app.use(ipValidation.validateIP);
+    app.use(ipValidation.validateIP);
 
     app.use(userAuthentication.authenticateUser);
 
@@ -52,29 +52,9 @@ exports.post=function(url, app){
 
     app.use(invokeSPParameter.invokeSPParameter);
 
-    app.use(invokeAllParameter.invokeAllParameter);*/
+    app.use(invokeAllParameter.invokeAllParameter);
 
-    /*app.use(function(req,res,next){
 
-        console.log("in checking parameter");
-        const isTxnTypeId=req.body.hasOwnProperty("TxnTypeidRef");
-        const isPaymentModeRef=req.body.hasOwnProperty("PaymentModeRef");
-
-        if(isTxnTypeId || isPaymentModeRef){
-
-            app.use(instrumentParam.getInstrumentType);
-
-            app.use(paymentMode.getPaymentMode);
-
-            app.use(invokeSPParameter.invokeSPParameter);
-        }
-        else{
-            console.log(isTxnTypeId);
-            app.use(invokeAllParameter.invokeAllParameter);
-
-        }
-
-    });*/
 
 
 

@@ -6,13 +6,17 @@ exports.authenticateUser=function(req,res,next) {
 
     console.log("in steppers --> authenticate user method");
 
-    var isUserValid=laasRepository.authenticateUsers(userName,password);
-    if(isUserValid===true) {
-        next();
-    }
-    else {
-        res.send("invalid username password");
-    }
+    laasRepository.authenticateUsers(userName,password)
+        .then((result)=>{
+            if(result[0].returnCode=='True'){
+                next();
+            }
+            else{
+                res.send("invalid username password");
+            }
+        })
+        .catch((err)=>{
 
+        });
 
 };

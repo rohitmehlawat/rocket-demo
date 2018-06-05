@@ -9,8 +9,13 @@ exports.invokeAllParameter=function(req,res,next){
     var laasData=req.body;
 
 
-    var response=laasRepository.invokeAllParameter(spParameters,laasData);
-    res.send(response);
+    laasRepository.invokeAllParameter(spParameters,laasData)
+        .then((result)=>{
+            res.send("success");
+        })
+        .catch((err)=>{
+
+        });
 
 
 
