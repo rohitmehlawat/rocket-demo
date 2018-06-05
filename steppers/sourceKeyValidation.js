@@ -5,12 +5,14 @@ exports.validateSourceKey=function(req,res,next) {
 
     console.log("in steppers--> validate source key --> " + apiSourceKey);
 
-    var isSourceKey = laasRepository.validateSourceKey(apiSourceKey);
+    var isSourceKey = laasRepository.validateSourceKey(apiSourceKey, (result) => {
 
-    if (isSourceKey =='True') {
-        res.send("success");
-    }
-    else {
-        res.send("api_source_key is invalid");
-    }
+        console.log("Result ------>>>>> " + result);
+        if (result =='True') {
+            res.send("success");
+        }
+        else {
+            res.send("api_source_key is invalid");
+        }
+    });
 };

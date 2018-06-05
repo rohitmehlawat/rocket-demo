@@ -1,25 +1,25 @@
-/*var Sybase=require("sybase");
-const logTiming=true;
+var Sybase = require("sybase");
+const logTiming = true;
 const jarPath = "JavaSybaseLink.jar";
-var db=new Sybase('192.168.1.178',32768,'testdb','tester','guest1234',logTiming);*/
+var db = new Sybase('192.168.1.178', 32768, 'testdb', 'tester', 'guest1234', logTiming);
 
 // ----db connection
 
-exports.connect=function(procedureName){
-    /*db.connect(function(err){
-        if(err){
-            var errResponse=JSON.stringify(err);
+exports.connect = function (procedureName, callback) {
+    db.connect(function (err) {
+        if (err) {
+            var errResponse = JSON.stringify(err);
             return errResponse;
         }
-        else{
+        else {
             console.log("connected");
         }
-        db.query(procedureName,function(err,data){
-            if(err) return JSON.stringify(err);
+        db.query(procedureName, function (err, data) {
             db.disconnect();
-            return  JSON.stringify(data);
+            if (err) 
+                JSON.stringify(err);
+            callback(JSON.stringify(data));
         });
-    });*/
-    return true;
+    });
 };
 

@@ -8,12 +8,12 @@ exports.validateData=function(laasData){
 
 };
 
-exports.validateSourceKey=function(api_source_key){
+exports.validateSourceKey=function(api_source_key, callback){
 
     console.log("in database method name --> validate Source Key  "+api_source_key);
-        var isValid=db.connect('p_validateSourceKey '+api_source_key);
-    return isValid;
-
+        var isValid=db.connect("p_validateSourceKey "+api_source_key, (result) => {
+            callback(result);
+        });
 };
 
 exports.validateIP=function(request_ip){
