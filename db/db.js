@@ -1,4 +1,5 @@
-const SyBase = require('node-sybase')
+const SyBase = require('node-sybase');
+const Q = require('q');
 
 db = new SyBase([
     {
@@ -14,16 +15,18 @@ db = new SyBase([
 // ----db connection
 
 exports.connect = function (query, callback) {
+    var defer = Q.defer();
     db.DBPools.main.execute(
         query
     ).then(
         res => {
-            callback(res);
+            defer.resolve(res);
         }
     ).catch(
         err => {
-            callback(err);
+            defer.reject(err);
         }
     );
+    return defer.promise;
 };
 
