@@ -1,25 +1,29 @@
-var Sybase = require("sybase");
-const logTiming = true;
-const jarPath = "JavaSybaseLink.jar";
-var db = new Sybase('192.168.1.178', 32768, 'testdb', 'tester', 'guest1234', logTiming);
+const SyBase = require('node-sybase')
+
+db = new SyBase([
+    {
+        name: 'main',
+        host: 'localhost',
+        port: 32768,
+        dbname: 'testdb?charset=cp936',
+        username: 'tester',
+        password: 'guest1234'
+    }
+])
 
 // ----db connection
 
-exports.connect = function (procedureName, callback) {
-    db.connect(function (err) {
-        if (err) {
-            var errResponse = JSON.stringify(err);
-            return errResponse;
+exports.connect = function (query, callback) {
+    db.DBPools.main.execute(
+        query
+    ).then(
+        res => {
+            callback(res);
         }
-        else {
-            console.log("connected");
+    ).catch(
+        err => {
+            callback(err);
         }
-        db.query(procedureName, function (err, data) {
-            db.disconnect();
-            if (err) 
-                JSON.stringify(err);
-            callback(JSON.stringify(data));
-        });
-    });
+    );
 };
 
