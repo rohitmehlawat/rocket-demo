@@ -1,14 +1,15 @@
 const SyBase = require('node-sybase');
 const Q = require('q');
+const config = require('../config/conf')
 
 var sybase = new SyBase([
     {
         name: 'main',
-        host: '192.168.1.178',
-        port: 32768,
-        dbname: 'testdb?charset=cp936',
-        username: 'tester',
-        password: 'guest1234'
+        host: config.get('db.host'),
+        port: config.get('db.port'),
+        dbname: config.get('db.name'),
+        username: config.get('db.username'),
+        password: config.get('db.password')
     }
 ])
 

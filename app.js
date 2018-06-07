@@ -1,19 +1,23 @@
-var express=require('express');
-var bodyParser=require('body-parser');
-var logger=require('./utils/logger');
-var helmet=require('./utils/helmet');
-var path=require('path');
-//var laasRoutes=require("./routes/laasroutes");
+const express=require('express');
+const bodyParser=require('body-parser');
+const logger=require('./utils/logger');
+const helmet=require('./utils/helmet');
+const path=require('path');
+const config=require('./config/conf')
 
-var laasController=require("./controllers/laasController");
-const portNo=3000;
+const laasController=require("./controllers/laasController");
+
+const portNo=config.get('app.port');
+
 var app=express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 helmet.bind(app);
+
 logger.bind(app,'error','log','access.log','1d',true);
+
 var server=app.listen(portNo,function(){
-   console.log("server is running at 3000");
+   console.log("server is running at " + portNo);
 });
 
 laasController.post('/txnpush', app);
