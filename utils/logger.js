@@ -5,15 +5,13 @@ const morgan = require('morgan');
 const fs = require('fs');
 const rfs = require('rotating-file-stream');
 
-var config = winston.config;
-
 var logger = {};
-
-var logStream;
 
 logger.bind = bind;
 logger.bindForAccessLogs = bindForAccessLogs;
-logger.getLogger = getLogger;
+logger.log = log;
+
+var logStream;
 
 var prettyFormatter = function (options) {
     return `${options.timestamp()} ${options.level.toUpperCase()}`
@@ -93,28 +91,34 @@ function bindForAccessLogs(app, directory, fileName, loggerFormat, rotatingStrat
         path: logDirectory
     })
     // setup the logger
-    app.use(morgan(loggerFormat, {stream: logStream}))
+    app.use(morgan(loggerFormat, { stream: logStream }))
 }
 
 
 function log(level, message) {
 
+    var logDirectory = path.join(__dirname, "/../" + 'log');
+
+    // ensure log directory exists
+    fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+
+    // create a rotating write stream
+    var logStream = rfs('appLog.log', {
+        interval: '1d', // rotate daily
+        path: logDirectory
+    })
     // setup the logger
-    return expressWinston.logger({
+    var localLogger =  new winston.Logger({
         level: level,
         transports: [new winston.transports.File(
             {
-                stream: logStream,
-                json: false,
-                timestamp: function () {
-                    return new Date();
-                },
-                formatter: `${options.timestamp()} ${options.level.toUpperCase()}`
-                + (options.message || '')
-                + (options.meta && Object.keys(options.meta).length ? JSON.stringify(options.meta, null, '\t') : '')
+                stream: logStream
             }
-        )]
+        )],
+        exitOnError: false
     });
+
+    localLogger.log(level, message);
 }
 
 module.exports = logger;

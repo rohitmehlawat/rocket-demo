@@ -6,8 +6,11 @@ var receiver=require("../schema/receiver");
 var charges=require("../schema/charges");
 var othertxnInfo=require("../schema/othertxnInfo");
 //var cheque=require("../schema/cheque");
+var logger = require("../utils/logger");
 
 exports.validateSchema=function(req,res,next){
+
+    logger.log('info','In Valdate Schema');
 
     var  laasData=req.body;
 
