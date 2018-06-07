@@ -7,3 +7,9 @@ db:
     name: testdb
     username: tester
     password: guest1234
+logger:
+    directory: log
+    file: access.log
+    level: error
+    rollingStrategy: 1d
+    isPretty: true

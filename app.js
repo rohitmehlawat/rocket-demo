@@ -14,7 +14,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 helmet.bind(app);
 
-logger.bind(app,'error','log','access.log','1d',true);
+logger.bind(
+    app,config.get('logger.level'),
+    config.get('logger.directory'),
+    config.get('logger.file'), 
+    config.get('logger.rollingStrategy'),
+    config.get('logger.isPretty'));
 
 var server=app.listen(portNo,function(){
    console.log("server is running at " + portNo);

@@ -27,35 +27,72 @@ var config = convict({
             format: String,
             default: 'localhost',
             env: "DB_HOST",
-            arg: "db_host"
+            arg: "dbHost"
         },
         port: {
             doc: "Database port",
             format: Number,
             default: 5000,
             env: "DB_PORT",
-            arg: "db_port"
+            arg: "dbPort"
         },
         name: {
             doc: "Database name",
             format: String,
             default: 'testdb',
             env: "DB_NAME",
-            arg: "db_name"
+            arg: "dbName"
         },
         username: {
             doc: "Database username",
             format: String,
             default: 'developers',
             env: "DB_USER_NAME",
-            arg: "db_username"
+            arg: "dbUsername"
         },
         password: {
             doc: "Database password",
             format: String,
             default: 'developers@123',
             env: "DB_PASSWORD",
-            arg: "db_password"
+            arg: "dbPassword"
+        }
+    },
+    logger: {
+        directory: {
+            doc: "Log Directory",
+            format: String,
+            default: '../log',
+            env: "LOG_DIR",
+            arg: "logDir"
+        },
+        file: {
+            doc: "Log File Name",
+            format: String,
+            default: 'app.log',
+            env: "LOG_FILE",
+            arg: "logFile"
+        },
+        level: {
+            doc: "Logger Error",
+            format: String,
+            default: 'info',
+            env: "LOG_LEVEL",
+            arg: "logLevel"
+        },
+        rollingStrategy: {
+            doc: "Rolling Strategy",
+            format: String,
+            default: '1d',
+            env: "ROLLING_STRATEGY",
+            arg: "rollingStrategy"
+        },
+        isPretty: {
+            doc: "Need pretty logs",
+            format: Boolean,
+            default: true,
+            env: "IS_PRETTY",
+            arg: "isPretty"
         }
     }
 });
