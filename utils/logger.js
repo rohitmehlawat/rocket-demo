@@ -9,17 +9,20 @@ var config = winston.config;
 
 var logger = {};
 
+var logStream;
+
 logger.bind = bind;
 logger.bindForAccessLogs = bindForAccessLogs;
+logger.getLogger = getLogger;
 
-var prettyFormatter = function(options) {
+var prettyFormatter = function (options) {
     return `${options.timestamp()} ${options.level.toUpperCase()}`
         + (options.message || '')
         + (options.meta && Object.keys(options.meta).length ? JSON.stringify(options.meta, null, '\t') : '');
 
 }
 
-var normalFormatter = function(options) {
+var normalFormatter = function (options) {
     return '[' + options.timestamp() + '] [' +
         options.level.toUpperCase() + '] ' +
         (options.message ? options.message : '') +
@@ -27,7 +30,7 @@ var normalFormatter = function(options) {
 
 }
 
-var getFormatter = function(isPretty)  {
+var getFormatter = function (isPretty) {
     return isPretty ? prettyFormatter : normalFormatter;
 }
 
@@ -36,18 +39,33 @@ function bind(app, level, directory, fileName, rotatingStrategy, isPretty) {
     expressWinston.requestWhitelist.push('body');
     expressWinston.responseWhitelist.push('body');
 
-    var logDirectory = path.join(__dirname, "/../"+directory);
+    var logDirectory = path.join(__dirname, "/../" + directory);
 
     // ensure log directory exists
     fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 
     // create a rotating write stream
-    var logStream = rfs(fileName, {
+    logStream = rfs(fileName, {
         interval: rotatingStrategy, // rotate daily
         path: logDirectory
     })
     // setup the logger
     app.use(expressWinston.logger({
+        level: level,
+        transports: [new winston.transports.File(
+            {
+
+                stream: logStream,
+                json: false,
+                timestamp: function () {
+                    return new Date();
+                },
+                formatter: getFormatter(isPretty)
+            }
+        )]
+    }));
+
+    app.use(expressWinston.errorLogger({
         level: level,
         transports: [new winston.transports.File(
             {
@@ -57,10 +75,10 @@ function bind(app, level, directory, fileName, rotatingStrategy, isPretty) {
                     return new Date();
                 },
                 formatter: getFormatter(isPretty),
-                handleExceptions: true
             }
         )]
     }));
+
 }
 
 function bindForAccessLogs(app, directory, fileName, loggerFormat, rotatingStrategy) {
@@ -75,7 +93,28 @@ function bindForAccessLogs(app, directory, fileName, loggerFormat, rotatingStrat
         path: logDirectory
     })
     // setup the logger
-    app.use(morgan(loggerFormat, { stream: logStream }))
+    app.use(morgan(loggerFormat, {stream: logStream}))
+}
+
+
+function log(level, message) {
+
+    // setup the logger
+    return expressWinston.logger({
+        level: level,
+        transports: [new winston.transports.File(
+            {
+                stream: logStream,
+                json: false,
+                timestamp: function () {
+                    return new Date();
+                },
+                formatter: `${options.timestamp()} ${options.level.toUpperCase()}`
+                + (options.message || '')
+                + (options.meta && Object.keys(options.meta).length ? JSON.stringify(options.meta, null, '\t') : '')
+            }
+        )]
+    });
 }
 
 module.exports = logger;

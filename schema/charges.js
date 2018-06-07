@@ -3,7 +3,7 @@ var charges={
     "id":"/charges",
     "type":"object",
     "properties":{
-        "txnamount.lc":{"type":floatType},
+       /* "txnamount.lc":{"type":floatType},
         "othercharge.lc":{"type":floatType},
         "margin.lc":{"type":floatType},
         "commission.lc":{"type":floatType},
@@ -34,10 +34,9 @@ var charges={
         "optotalamt":{"type":floatType},
         "kntotalamt":{"type":floatType},
         "dftotalamt":{"type":floatType},
-        "wltotalamt":{"type":floatType}
+        "wltotalamt":{"type":floatType}*/
 
-    },
-    "required":["txnamount.lc"]
+    }
 };
 
 module.exports=charges;

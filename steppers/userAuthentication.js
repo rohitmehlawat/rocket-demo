@@ -16,7 +16,11 @@ exports.authenticateUser=function(req,res,next) {
             }
         })
         .catch((err)=>{
-
+            console.log("error of steppers--->"+err);
+            res.status(err.status);
+            res.send({
+               response:err.message
+            });
         });
 
 };

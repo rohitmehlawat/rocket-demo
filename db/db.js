@@ -1,7 +1,7 @@
 const SyBase = require('node-sybase');
 const Q = require('q');
 
-db = new SyBase([
+var sybase = new SyBase([
     {
         name: 'main',
         host: '192.168.1.178',
@@ -16,14 +16,18 @@ db = new SyBase([
 
 exports.connect = function (query) {
     var defer = Q.defer();
-    db.DBPools.main.execute(
+    console.log("in database");
+    sybase.DBPools.main.execute(
         query
     ).then(
         res => {
+            console.log("in resolve");
             defer.resolve(res);
         }
-    ).catch(
+    )
+        .catch(
         err => {
+            console.log("in error--->"+err);
             defer.reject(err);
         }
     );

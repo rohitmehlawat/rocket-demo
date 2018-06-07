@@ -1,29 +1,555 @@
-Tue Jun 05 2018 17:30:40 GMT+0530 (India Standard Time) INFOHTTP POST /txnpush{
+Thu Jun 07 2018 11:41:16 GMT+0530 (India Standard Time) INFOHTTP POST /txnpush{
 	"res": {
-		"statusCode": 200
+		"statusCode": 400,
+		"body": {
+			"response": "Error in p_validateHostIP-->Invalid Parameter"
+		}
 	},
 	"req": {
 		"url": "/txnpush",
 		"headers": {
-			"host": "localhost:3000",
+			"host": "192.168.3.50:3000",
 			"connection": "keep-alive",
 			"content-length": "1821",
 			"origin": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
 			"cache-control": "no-cache",
 			"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36",
-			"api_source_key": "valid",
+			"api_source_key": "'1234'",
 			"username": "\"cbuser01\"",
 			"content-type": "application/json",
 			"password": "\"dfjnskfc\"",
-			"postman-token": "71099309-40ff-ced6-03c8-dccf0a8aa6a2",
+			"postman-token": "1ef19de3-f31a-7227-4f9a-a32bef47cef4",
 			"accept": "*/*",
-			"accept-encoding": "gzip, deflate, br",
+			"accept-encoding": "gzip, deflate",
 			"accept-language": "en-US,en;q=0.9"
 		},
 		"method": "POST",
 		"httpVersion": "1.1",
 		"originalUrl": "/txnpush",
-		"query": {}
+		"query": {},
+		"body": {
+			"txnno": "00045265A06F7AD4",
+			"txndate": "3/14/2018 0:00",
+			"txnGMTdate": "3/14/2018 0:00",
+			"txntypeid": 1,
+			"currency": {
+				"lc": "AED",
+				"fc": "INR"
+			},
+			"sender": {
+				"senderid": 0,
+				"senderdescription": "",
+				"agentcode": "UAEEXAECB001",
+				"customerno": "0029778415463535",
+				"cashierid": "dhanyan"
+			},
+			"receiver": {
+				"receiverid": 0,
+				"receiverdescription": "",
+				"agentcodeto": "",
+				"cashiercodeto": ""
+			},
+			"charges": {
+				"txnamount.lc": "1000.000",
+				"othercharge.lc": "1000.000",
+				"margin.lc": "1000.000",
+				"commission.lc": "1000.000",
+				"tax.lc": "1000.000",
+				"cardcharge.lc ": "1000.000",
+				"additionalcharge.lc": "1000.000",
+				"roundoff.lc": "1000.000",
+				"txnamount.fc": "1000.000",
+				"othercharge.fc": "1000.000",
+				"margin.fc": "1000.000",
+				"commission.fc": "1000.000",
+				"tax.fc": "1000.000",
+				"cardcharge.fc ": "1000.000",
+				"additionalcharge.fc": "1000.000",
+				"roundoff.fc": "1000.000",
+				"txnamount.usd": "1000.000",
+				"othercharge.usd": "1000.000",
+				"margin.usd": "1000.000",
+				"commission.usd": "1000.000",
+				"tax.usd": "1000.000",
+				"cardcharge.usd ": "1000.000",
+				"additionalcharge.usd": "1000.000",
+				"roundoff.usd": "1000.000",
+				"cstotalamt": "1000.000",
+				"cqtotalamt": "1000.000",
+				"cctotalamt": "1000.000",
+				"dctotalamt": "1000.000",
+				"actotalamt": "1000.000",
+				"optotalamt": "1000.000",
+				"kntotalamt": "1000.000",
+				"dftotalamt": "1000.000",
+				"wltotalamt": "1000.000"
+			},
+			"othertxnInfo": {
+				"cheque": [
+					{
+						"chequeno": "964",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					},
+					{
+						"chequeno": "965",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					}
+				],
+				"customerstatus": 2,
+				"customertype": 1048576,
+				"customerfirstname": "John"
+			}
+		}
 	},
-	"responseTime": 78
+	"responseTime": 237
+}
+Thu Jun 07 2018 11:45:37 GMT+0530 (India Standard Time) ERRORHTTP POST /txnpush{
+	"res": {
+		"statusCode": 400,
+		"body": {
+			"response": "Error in p_validateHostIP-->Invalid Parameter"
+		}
+	},
+	"req": {
+		"url": "/txnpush",
+		"headers": {
+			"host": "192.168.3.50:3000",
+			"connection": "keep-alive",
+			"content-length": "1821",
+			"origin": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+			"cache-control": "no-cache",
+			"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36",
+			"api_source_key": "'1234'",
+			"username": "\"cbuser01\"",
+			"content-type": "application/json",
+			"password": "\"dfjnskfc\"",
+			"postman-token": "b541d80a-7a65-8b2f-f871-e88bde6437eb",
+			"accept": "*/*",
+			"accept-encoding": "gzip, deflate",
+			"accept-language": "en-US,en;q=0.9"
+		},
+		"method": "POST",
+		"httpVersion": "1.1",
+		"originalUrl": "/txnpush",
+		"query": {},
+		"body": {
+			"txnno": "00045265A06F7AD4",
+			"txndate": "3/14/2018 0:00",
+			"txnGMTdate": "3/14/2018 0:00",
+			"txntypeid": 1,
+			"currency": {
+				"lc": "AED",
+				"fc": "INR"
+			},
+			"sender": {
+				"senderid": 0,
+				"senderdescription": "",
+				"agentcode": "UAEEXAECB001",
+				"customerno": "0029778415463535",
+				"cashierid": "dhanyan"
+			},
+			"receiver": {
+				"receiverid": 0,
+				"receiverdescription": "",
+				"agentcodeto": "",
+				"cashiercodeto": ""
+			},
+			"charges": {
+				"txnamount.lc": "1000.000",
+				"othercharge.lc": "1000.000",
+				"margin.lc": "1000.000",
+				"commission.lc": "1000.000",
+				"tax.lc": "1000.000",
+				"cardcharge.lc ": "1000.000",
+				"additionalcharge.lc": "1000.000",
+				"roundoff.lc": "1000.000",
+				"txnamount.fc": "1000.000",
+				"othercharge.fc": "1000.000",
+				"margin.fc": "1000.000",
+				"commission.fc": "1000.000",
+				"tax.fc": "1000.000",
+				"cardcharge.fc ": "1000.000",
+				"additionalcharge.fc": "1000.000",
+				"roundoff.fc": "1000.000",
+				"txnamount.usd": "1000.000",
+				"othercharge.usd": "1000.000",
+				"margin.usd": "1000.000",
+				"commission.usd": "1000.000",
+				"tax.usd": "1000.000",
+				"cardcharge.usd ": "1000.000",
+				"additionalcharge.usd": "1000.000",
+				"roundoff.usd": "1000.000",
+				"cstotalamt": "1000.000",
+				"cqtotalamt": "1000.000",
+				"cctotalamt": "1000.000",
+				"dctotalamt": "1000.000",
+				"actotalamt": "1000.000",
+				"optotalamt": "1000.000",
+				"kntotalamt": "1000.000",
+				"dftotalamt": "1000.000",
+				"wltotalamt": "1000.000"
+			},
+			"othertxnInfo": {
+				"cheque": [
+					{
+						"chequeno": "964",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					},
+					{
+						"chequeno": "965",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					}
+				],
+				"customerstatus": 2,
+				"customertype": 1048576,
+				"customerfirstname": "John"
+			}
+		}
+	},
+	"responseTime": 101
+}
+Thu Jun 07 2018 11:49:03 GMT+0530 (India Standard Time) ERRORHTTP POST /txnpush1{
+	"res": {
+		"statusCode": 400,
+		"body": {
+			"response": "Error in p_validateHostIP-->Invalid Parameter"
+		}
+	},
+	"req": {
+		"url": "/txnpush1",
+		"headers": {
+			"host": "192.168.3.50:3000",
+			"connection": "keep-alive",
+			"content-length": "1821",
+			"origin": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+			"cache-control": "no-cache",
+			"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36",
+			"api_source_key": "'1234'",
+			"username": "\"cbuser01\"",
+			"content-type": "application/json",
+			"password": "\"dfjnskfc\"",
+			"postman-token": "c84e7062-56f9-4f80-1b29-fe92167b53ef",
+			"accept": "*/*",
+			"accept-encoding": "gzip, deflate",
+			"accept-language": "en-US,en;q=0.9"
+		},
+		"method": "POST",
+		"httpVersion": "1.1",
+		"originalUrl": "/txnpush1",
+		"query": {},
+		"body": {
+			"txnno": "00045265A06F7AD4",
+			"txndate": "3/14/2018 0:00",
+			"txnGMTdate": "3/14/2018 0:00",
+			"txntypeid": 1,
+			"currency": {
+				"lc": "AED",
+				"fc": "INR"
+			},
+			"sender": {
+				"senderid": 0,
+				"senderdescription": "",
+				"agentcode": "UAEEXAECB001",
+				"customerno": "0029778415463535",
+				"cashierid": "dhanyan"
+			},
+			"receiver": {
+				"receiverid": 0,
+				"receiverdescription": "",
+				"agentcodeto": "",
+				"cashiercodeto": ""
+			},
+			"charges": {
+				"txnamount.lc": "1000.000",
+				"othercharge.lc": "1000.000",
+				"margin.lc": "1000.000",
+				"commission.lc": "1000.000",
+				"tax.lc": "1000.000",
+				"cardcharge.lc ": "1000.000",
+				"additionalcharge.lc": "1000.000",
+				"roundoff.lc": "1000.000",
+				"txnamount.fc": "1000.000",
+				"othercharge.fc": "1000.000",
+				"margin.fc": "1000.000",
+				"commission.fc": "1000.000",
+				"tax.fc": "1000.000",
+				"cardcharge.fc ": "1000.000",
+				"additionalcharge.fc": "1000.000",
+				"roundoff.fc": "1000.000",
+				"txnamount.usd": "1000.000",
+				"othercharge.usd": "1000.000",
+				"margin.usd": "1000.000",
+				"commission.usd": "1000.000",
+				"tax.usd": "1000.000",
+				"cardcharge.usd ": "1000.000",
+				"additionalcharge.usd": "1000.000",
+				"roundoff.usd": "1000.000",
+				"cstotalamt": "1000.000",
+				"cqtotalamt": "1000.000",
+				"cctotalamt": "1000.000",
+				"dctotalamt": "1000.000",
+				"actotalamt": "1000.000",
+				"optotalamt": "1000.000",
+				"kntotalamt": "1000.000",
+				"dftotalamt": "1000.000",
+				"wltotalamt": "1000.000"
+			},
+			"othertxnInfo": {
+				"cheque": [
+					{
+						"chequeno": "964",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					},
+					{
+						"chequeno": "965",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					}
+				],
+				"customerstatus": 2,
+				"customertype": 1048576,
+				"customerfirstname": "John"
+			}
+		}
+	},
+	"responseTime": 28
+}
+Thu Jun 07 2018 11:49:14 GMT+0530 (India Standard Time) ERRORHTTP POST /txnpush1345sdf{
+	"res": {
+		"statusCode": 400,
+		"body": {
+			"response": "Error in p_validateHostIP-->Invalid Parameter"
+		}
+	},
+	"req": {
+		"url": "/txnpush1345sdf",
+		"headers": {
+			"host": "192.168.3.50:3000",
+			"connection": "keep-alive",
+			"content-length": "1821",
+			"origin": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+			"cache-control": "no-cache",
+			"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36",
+			"api_source_key": "'1234'",
+			"username": "\"cbuser01\"",
+			"content-type": "application/json",
+			"password": "\"dfjnskfc\"",
+			"postman-token": "a20a1371-d5eb-0b0c-b478-0fb7314a9972",
+			"accept": "*/*",
+			"accept-encoding": "gzip, deflate",
+			"accept-language": "en-US,en;q=0.9"
+		},
+		"method": "POST",
+		"httpVersion": "1.1",
+		"originalUrl": "/txnpush1345sdf",
+		"query": {},
+		"body": {
+			"txnno": "00045265A06F7AD4",
+			"txndate": "3/14/2018 0:00",
+			"txnGMTdate": "3/14/2018 0:00",
+			"txntypeid": 1,
+			"currency": {
+				"lc": "AED",
+				"fc": "INR"
+			},
+			"sender": {
+				"senderid": 0,
+				"senderdescription": "",
+				"agentcode": "UAEEXAECB001",
+				"customerno": "0029778415463535",
+				"cashierid": "dhanyan"
+			},
+			"receiver": {
+				"receiverid": 0,
+				"receiverdescription": "",
+				"agentcodeto": "",
+				"cashiercodeto": ""
+			},
+			"charges": {
+				"txnamount.lc": "1000.000",
+				"othercharge.lc": "1000.000",
+				"margin.lc": "1000.000",
+				"commission.lc": "1000.000",
+				"tax.lc": "1000.000",
+				"cardcharge.lc ": "1000.000",
+				"additionalcharge.lc": "1000.000",
+				"roundoff.lc": "1000.000",
+				"txnamount.fc": "1000.000",
+				"othercharge.fc": "1000.000",
+				"margin.fc": "1000.000",
+				"commission.fc": "1000.000",
+				"tax.fc": "1000.000",
+				"cardcharge.fc ": "1000.000",
+				"additionalcharge.fc": "1000.000",
+				"roundoff.fc": "1000.000",
+				"txnamount.usd": "1000.000",
+				"othercharge.usd": "1000.000",
+				"margin.usd": "1000.000",
+				"commission.usd": "1000.000",
+				"tax.usd": "1000.000",
+				"cardcharge.usd ": "1000.000",
+				"additionalcharge.usd": "1000.000",
+				"roundoff.usd": "1000.000",
+				"cstotalamt": "1000.000",
+				"cqtotalamt": "1000.000",
+				"cctotalamt": "1000.000",
+				"dctotalamt": "1000.000",
+				"actotalamt": "1000.000",
+				"optotalamt": "1000.000",
+				"kntotalamt": "1000.000",
+				"dftotalamt": "1000.000",
+				"wltotalamt": "1000.000"
+			},
+			"othertxnInfo": {
+				"cheque": [
+					{
+						"chequeno": "964",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					},
+					{
+						"chequeno": "965",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					}
+				],
+				"customerstatus": 2,
+				"customertype": 1048576,
+				"customerfirstname": "John"
+			}
+		}
+	},
+	"responseTime": 33
+}
+Thu Jun 07 2018 11:49:26 GMT+0530 (India Standard Time) ERRORHTTP POST /txnpush1345sdf{
+	"res": {
+		"statusCode": 400,
+		"body": {
+			"response": "Error in p_validateHostIP-->Invalid Parameter"
+		}
+	},
+	"req": {
+		"url": "/txnpush1345sdf",
+		"headers": {
+			"host": "192.168.3.50:3000",
+			"connection": "keep-alive",
+			"content-length": "1821",
+			"origin": "chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop",
+			"cache-control": "no-cache",
+			"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36",
+			"api_source_key": "'1234'",
+			"username": "\"cbuser01\"",
+			"content-type": "application/json",
+			"password": "\"dfjnskfc\"",
+			"postman-token": "a044072f-c6f4-d282-fc80-c30160750550",
+			"accept": "*/*",
+			"accept-encoding": "gzip, deflate",
+			"accept-language": "en-US,en;q=0.9"
+		},
+		"method": "POST",
+		"httpVersion": "1.1",
+		"originalUrl": "/txnpush1345sdf",
+		"query": {},
+		"body": {
+			"txnno": "00045265A06F7AD4",
+			"txndate": "3/14/2018 0:00",
+			"txnGMTdate": "3/14/2018 0:00",
+			"txntypeid": 1,
+			"currency": {
+				"lc": "AED",
+				"fc": "INR"
+			},
+			"sender": {
+				"senderid": 0,
+				"senderdescription": "",
+				"agentcode": "UAEEXAECB001",
+				"customerno": "0029778415463535",
+				"cashierid": "dhanyan"
+			},
+			"receiver": {
+				"receiverid": 0,
+				"receiverdescription": "",
+				"agentcodeto": "",
+				"cashiercodeto": ""
+			},
+			"charges": {
+				"txnamount.lc": "1000.000",
+				"othercharge.lc": "1000.000",
+				"margin.lc": "1000.000",
+				"commission.lc": "1000.000",
+				"tax.lc": "1000.000",
+				"cardcharge.lc ": "1000.000",
+				"additionalcharge.lc": "1000.000",
+				"roundoff.lc": "1000.000",
+				"txnamount.fc": "1000.000",
+				"othercharge.fc": "1000.000",
+				"margin.fc": "1000.000",
+				"commission.fc": "1000.000",
+				"tax.fc": "1000.000",
+				"cardcharge.fc ": "1000.000",
+				"additionalcharge.fc": "1000.000",
+				"roundoff.fc": "1000.000",
+				"txnamount.usd": "1000.000",
+				"othercharge.usd": "1000.000",
+				"margin.usd": "1000.000",
+				"commission.usd": "1000.000",
+				"tax.usd": "1000.000",
+				"cardcharge.usd ": "1000.000",
+				"additionalcharge.usd": "1000.000",
+				"roundoff.usd": "1000.000",
+				"cstotalamt": "1000.000",
+				"cqtotalamt": "1000.000",
+				"cctotalamt": "1000.000",
+				"dctotalamt": "1000.000",
+				"actotalamt": "1000.000",
+				"optotalamt": "1000.000",
+				"kntotalamt": "1000.000",
+				"dftotalamt": "1000.000",
+				"wltotalamt": "1000.000"
+			},
+			"othertxnInfo": {
+				"cheque": [
+					{
+						"chequeno": "964",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					},
+					{
+						"chequeno": "965",
+						"chequedate": "3/14/2018 0:00",
+						"bankname": "ARAB BANK",
+						"partyname": "ALWEJDAN FOR TRAVEL AND TOURS",
+						"chequeamount": "8000000"
+					}
+				],
+				"customerstatus": 2,
+				"customertype": 1048576,
+				"customerfirstname": "John"
+			}
+		}
+	},
+	"responseTime": 85
 }

@@ -7,21 +7,23 @@ exports.validateSourceKey = function (req, res, next) {
 
     laasRepository.validateSourceKey(apiSourceKey)
         .then((result) => {
-            console.log("Result ------>>>>> " + result);
-            if (result[0].returnCode == 'True') {
-                res.send({
-                    response : 'success'
-                }
-                    );
+            console.log("Result ------>>>>> " + JSON.stringify(result));
+            if (result[0].returnCode === 1234567890) {
+                res.locals.sourceSystemId=result[0].returnCode;
+                next();
             }
             else {
+                res.send(401);
                 res.send({
-                        response : 'invalid'
-                    }
-                );
+                        response : 'invalid api_source_key'
+                    });
             }
         })
         .catch((err) => {
-
+            res.status(err.statusCode);
+            res.send({
+               response:"Error in p_validateSourceKey "+err.message
+            });
+            //res.error(err);
         });
 };

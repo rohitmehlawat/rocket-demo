@@ -10,7 +10,10 @@ exports.getProductCode=function(req,res,next){
             next();
         })
         .catch((err)=>{
-
+            res.status(err.statusCode);
+            res.send({
+                response:err.message
+            })
         });
 
 };

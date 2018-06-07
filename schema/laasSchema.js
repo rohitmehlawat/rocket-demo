@@ -15,7 +15,7 @@ var laasSchema={
         "othertxnInfo":{"$ref":"/othertxnInfo"}
 
     },
-    "required":['txnno','txntypeid','currency',"sender","receiver","charges","othertxnInfo"]
+    "required":['txnno','txndate','txnGMTdate','txntypeid','currency',"sender","receiver","charges","othertxnInfo"]
 
 };
 

@@ -11,7 +11,7 @@ var app=express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 helmet.bind(app);
-logger.bind(app,'info','log','access.log','1d',true);
+logger.bind(app,'error','log','access.log','1d',true);
 var server=app.listen(portNo,function(){
    console.log("server is running at 3000");
 });

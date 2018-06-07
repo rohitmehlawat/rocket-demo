@@ -10,6 +10,7 @@ exports.validateData = function (laasData) {
            defer.resolve(result);
         })
         .catch((err)=>{
+
             defer.reject(err);
         });
 
@@ -27,20 +28,21 @@ exports.validateSourceKey = function (api_source_key) {
         })
         .catch((err) => {
 
-            console.log( "  Errorroro ------- " + err);
+            console.log( "Error in Repo ------- " + err);
             defer.reject(err);
         });
     return defer.promise;
 };
 
-exports.validateIP = function (request_ip) {
+exports.validateIP = function (request_ip,sourceSystemId) {
     var defer=Q.defer();
     console.log("in database method name -->  Validate IP  " + request_ip);
-    db.connect("validateIP "+request_ip)
+    db.connect("p_validateHostIP 123,null")
         .then((result)=>{
             defer.resolve(result);
         })
         .catch((err)=>{
+            console.log("in error of repo"+err);
             defer.reject(err);
         });
     return defer.promise;
@@ -49,7 +51,7 @@ exports.validateIP = function (request_ip) {
 exports.authenticateUsers = function (username, password) {
     var defer=Q.defer();
     console.log("in database method name  --> authenticate Users  " + username + " " + password);
-    db.connect("validateUser")
+    db.connect("validateUser "+username+" "+password)
         .then((result)=>{
             defer.resolve(result);
         })
@@ -62,7 +64,7 @@ exports.authenticateUsers = function (username, password) {
 exports.getProductCode = function (txnTypeId) {
     var defer=Q.defer();
     console.log("in database method name  ---> get Product Code " + txnTypeId);
-    db.connect("productCode"+ txnTypeId)
+    db.connect("productCode "+ txnTypeId)
         .then((result)=>{
             defer.resolve(result);
         })
