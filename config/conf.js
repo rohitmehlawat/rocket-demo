@@ -94,6 +94,15 @@ var config = convict({
             env: "IS_PRETTY",
             arg: "isPretty"
         }
+    },
+    security: {
+        rsaKey: {
+            doc: "RSA Key",
+            format: String,
+            default: "",
+            env: "RSA_KEY",
+            arg: "rsaKey"
+        }
     }
 });
 

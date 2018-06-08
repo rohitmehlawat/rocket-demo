@@ -3,7 +3,7 @@ const bodyParser=require('body-parser');
 const logger=require('./utils/logger');
 const helmet=require('./utils/helmet');
 const path=require('path');
-const config=require('./config/conf')
+const config=require('./config/conf');
 
 const laasController=require("./controllers/laasController");
 
