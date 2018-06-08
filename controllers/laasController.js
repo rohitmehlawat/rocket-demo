@@ -27,8 +27,6 @@ exports.post=function(url, app){
 
     app.use(url,schemaValidator.validateSchema);
 
-    //app.use(dataValidation.validateData);
-
     app.use(url,sourceKeyValidation.validateSourceKey);
 
     app.use(url,ipValidation.validateIP);

@@ -6,7 +6,7 @@ exports.getSPParamters=function(req,res,next){
 
     const productCode=res.locals.productCode;
 
-    const ssid=req.headers.ssid;
+    const ssid=res.locals.sourceSystemId;
 
     const txnTypeId=req.body.txntypeid;
 
@@ -16,7 +16,10 @@ exports.getSPParamters=function(req,res,next){
             next();
         })
         .catch((err)=>{
-
+            res.status(400);
+            res.send({
+                response:err.message
+            });
         });
 
 

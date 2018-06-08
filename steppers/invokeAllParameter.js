@@ -3,19 +3,20 @@ var laasRepository=require("../db/laasRepository");
 exports.invokeAllParameter=function(req,res,next){
 
 
-    console.log("in steppers ---> invoke All Parameters");
-    var spParameters=res.locals.parameters;
+    if(res.locals.executeInstrumentParam===false){
+        console.log("in steppers ---> invoke All Parameters");
+        const SPName=res.locals.SPName;
+        const SPParameters=res.locals.SPParameters;
+        laasRepository.invokeAllParameter(SPName,SPParameters)
+            .then((result)=>{
+                res.send("success");
+            })
+            .catch((err)=>{
 
-    var laasData=req.body;
+            });
+    }
+    next();
 
-
-    laasRepository.invokeAllParameter(spParameters,laasData)
-        .then((result)=>{
-            res.send("success");
-        })
-        .catch((err)=>{
-
-        });
 
 
 

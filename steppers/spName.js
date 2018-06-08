@@ -6,16 +6,21 @@ exports.getSPName=function(req,res,next){
 
     const productCode=res.locals.productCode;
 
-    const ssid=req.headers.ssid;
+    const ssid=res.locals.sourceSystemId;
 
     const txnTypeId=req.body.txntypeid;
 
     laasRepository.getSPName(ssid,txnTypeId,productCode)
         .then((result)=>{
-            res.locals.spName=result;
+
+            res.locals.SPName=result[0].SPName;
             next();
         })
         .catch((err)=>{
+            res.status(400);
+            res.send({
+               response:err.message
+            });
 
         });
 

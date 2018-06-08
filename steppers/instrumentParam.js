@@ -8,12 +8,16 @@ exports.getInstrumentType=function(req,res,next){
 
         const txnTypeId = req.body.txntypeid;
 
+
         laasRepository.getInstrumentType(txnTypeId)
             .then((result)=>{
-                res.locals.instrumentParam = instrumentParam;
+                res.locals.instrumentParam = result[0];
             })
             .catch((err)=>{
-
+                res.status(400);
+                res.send({
+                    response:err.message
+                });
             });
 
 

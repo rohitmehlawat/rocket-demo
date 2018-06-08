@@ -3,16 +3,13 @@ var requestIP=require("request-ip");
 exports.validateIP=function(req,res,next) {
 
     console.log("in steppers --> validateIP method");
-    const sourceSystemId=res.locals.sourceSystemId;
+    const ssid=res.locals.sourceSystemId;
     const reqIP=requestIP.getClientIp(req); // getting client IP
-    laasRepository.validateIP(sourceSystemId,reqIP)
+    laasRepository.validateIP(ssid,reqIP)
         .then((result)=>{
             console.log("Result for IP----->"+JSON.stringify(result));
             if(result[0].ValdationStatus===1){
                 next();
-                /*res.send({
-                    response:"success"
-                });*/
             }
             else{
                 res.status(401);

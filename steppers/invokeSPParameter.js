@@ -2,11 +2,13 @@ var laasRepository=require("../db/laasRepository");
 
 exports.invokeSPParameter=function(req,res,next){
     if(res.locals.executeInstrumentParam) {
-        var spParameters = res.locals.parameters;
-        var instrumentParam=res.locals.instrumentParam;
-        var paymentMode=res.locals.paymentMode;
+        const SPName=res.locals.SPName;
+        const SPParameters=res.locals.SPParameters;
+        const instrumentType=res.locals.instrumentParam;
+        const productCode=res.locals.productCode;
+        const paymentMode=res.locals.paymentMode;
 
-        laasRepository.invokeSPParamter(spParameters,instrumentParam,paymentMode)
+        laasRepository.invokeSPParamter(SPName,SPParameters,instrumentType,productCode,paymentMode)
             .then((result)=>{
 
             })

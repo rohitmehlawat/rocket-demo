@@ -6,11 +6,11 @@ exports.getProductCode=function(req,res,next){
     const txnTypeId=req.body.txntypeid;
     laasRepository.getProductCode(txnTypeId)
         .then((result)=>{
-            res.locals.productCode=result;
+            res.locals.productCode=result[0].ProductCode;
             next();
         })
         .catch((err)=>{
-            res.status(err.statusCode);
+            res.status(400);
             res.send({
                 response:err.message
             })

@@ -5,12 +5,11 @@ var sender=require("../schema/sender");
 var receiver=require("../schema/receiver");
 var charges=require("../schema/charges");
 var othertxnInfo=require("../schema/othertxnInfo");
-//var cheque=require("../schema/cheque");
 var logger = require("../utils/logger");
 
 exports.validateSchema=function(req,res,next){
 
-    logger.log('info','In Valdate Schema');
+    logger.log('info','In Validate Schema');
 
     var  laasData=req.body;
 
@@ -20,7 +19,6 @@ exports.validateSchema=function(req,res,next){
     schemaValidator.addSchema(receiver,"/receiver");
     schemaValidator.addSchema(charges,"/charges");
     schemaValidator.addSchema(othertxnInfo,"/othertxnInfo");
-    //schemaValidator.addSchema(cheque,"/cheque");
 
     var result=schemaValidator.validate(laasData,laasSchema);
 

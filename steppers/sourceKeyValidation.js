@@ -1,29 +1,22 @@
 var laasRepository = require("../db/laasRepository");
+var logger = require("../utils/logger");
 exports.validateSourceKey = function (req, res, next) {
 
     const apiSourceKey = req.headers.api_source_key;
 
-    console.log("in steppers--> validate source key --> " + apiSourceKey);
+
+    logger.log('info',"in source key validation");
 
     laasRepository.validateSourceKey(apiSourceKey)
         .then((result) => {
             console.log("Result ------>>>>> " + JSON.stringify(result));
-            if (result[0].returnCode === 1234567890) {
-                res.locals.sourceSystemId=result[0].returnCode;
-                next();
-            }
-            else {
-                res.send(401);
-                res.send({
-                        response : 'invalid api_source_key'
-                    });
-            }
+            res.locals.sourceSystemId=result[0].returnCode;
         })
         .catch((err) => {
+            logger.log('err',"error in p_validateSourceKey "+err.message);
             res.status(400);
             res.send({
                response:"Error in p_validateSourceKey "+err.message
             });
-            //res.error(err);
         });
 };

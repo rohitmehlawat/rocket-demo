@@ -3,18 +3,15 @@ var invokeAllParameter=require("../steppers/invokeAllParameter");
 exports.checkAPIParameter=function(req,res,next){
 
     console.log("in steppers --> checkAPIParameter method");
+    res.locals.executeInstrumentParam = false;
+    const parameters=res.locals.parameters;
+    parameters.forEach((parameter)=>{
+        if(parameter.APIParameter==="TxnTypeidRef" || parameter.APIParameter==="PaymentModeRef" ){
+            res.locals.executeInstrumentParam = true;
+            return;
+        }
+    });
 
-    const isTxnTypeId=req.body.hasOwnProperty("TxnTypeidRef");
-    const isPaymentModeRef=req.body.hasOwnProperty("PaymentModeRef");
-
-    if(isTxnTypeId || isPaymentModeRef){
-        res.locals.executeInstrumentParam = true;
-        next();
-    }
-    else{
-        res.locals.executeInstrumentParam = false;
-        next();
-
-    }
+    next();
 
 };
