@@ -1,0 +1,9 @@
+
+{"level":"info","message":"inside source key validation","timestamp":"2018-06-08T10:48:11.642Z"}
+{"level":"info","message":"In Validate Schema","timestamp":"2018-06-08T10:48:11.633Z"}
+{"level":"info","message":"inside validate source key repository ","timestamp":"2018-06-08T10:48:11.642Z"}
+{"level":"info","message":"inside source key validation Result returnCode--> 1234567890","timestamp":"2018-06-08T10:48:11.797Z"}
+{"level":"info","message":"inside validate source key repository Result---->[{\"returnCode\":1234567890}]","timestamp":"2018-06-08T10:48:11.795Z"}
+{"level":"info","message":"inside source key validation","timestamp":"2018-06-08T10:55:38.457Z"}
+{"level":"info","message":"In Validate Schema","timestamp":"2018-06-08T10:55:38.455Z"}
+{"level":"info","message":"inside validate source key repository ","timestamp":"2018-06-08T10:55:38.458Z"}
