@@ -28,6 +28,7 @@ exports.validateSchema=function(req,res,next){
         next();
     }
     else{
+        logger.log('err',result.errors);
         res.send(result.errors);
     }
 };

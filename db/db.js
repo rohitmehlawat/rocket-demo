@@ -11,7 +11,7 @@ var sybase = new SyBase([
         username: config.get('db.username'),
         password: config.get('db.password')
     }
-])
+]);
 
 // ----db connection
 

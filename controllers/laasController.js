@@ -25,33 +25,33 @@ var responseData=require("../utils/response");
 
 exports.post=function(url, app){
 
-    app.use(schemaValidator.validateSchema);
+    app.use(url,schemaValidator.validateSchema);
 
     //app.use(dataValidation.validateData);
 
-    app.use(sourceKeyValidation.validateSourceKey);
+    app.use(url,sourceKeyValidation.validateSourceKey);
 
-    app.use(ipValidation.validateIP);
+    app.use(url,ipValidation.validateIP);
 
-    app.use(userAuthentication.authenticateUser);
+    app.use(url,userAuthentication.authenticateUser);
 
-    app.use(productCode.getProductCode);
+    app.use(url,productCode.getProductCode);
 
-    app.use(spName.getSPName);
+    app.use(url,spName.getSPName);
 
-    app.use(parameters.getSPParamters);
+    app.use(url,parameters.getSPParamters);
 
-    app.use(spParameter.setSPParameter);
+    app.use(url,spParameter.setSPParameter);
 
-    app.use(apiParameter.checkAPIParameter);
+    app.use(url,apiParameter.checkAPIParameter);
 
-    app.use(instrumentParam.getInstrumentType);
+    app.use(url,instrumentParam.getInstrumentType);
 
-    app.use(paymentMode.getPaymentMode);
+    app.use(url,paymentMode.getPaymentMode);
 
-    app.use(invokeSPParameter.invokeSPParameter);
+    app.use(url,invokeSPParameter.invokeSPParameter);
 
-    app.use(invokeAllParameter.invokeAllParameter);
+    app.use(url,invokeAllParameter.invokeAllParameter);
 
 
 

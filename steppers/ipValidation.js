@@ -5,7 +5,7 @@ exports.validateIP=function(req,res,next) {
     console.log("in steppers --> validateIP method");
     const sourceSystemId=res.locals.sourceSystemId;
     const reqIP=requestIP.getClientIp(req); // getting client IP
-    laasRepository.validateIP(reqIP,sourceSystemId)
+    laasRepository.validateIP(sourceSystemId,reqIP)
         .then((result)=>{
             console.log("Result for IP----->"+JSON.stringify(result));
             if(result[0].ValdationStatus===1){
@@ -15,7 +15,7 @@ exports.validateIP=function(req,res,next) {
                 });*/
             }
             else{
-
+                res.status(401);
                 res.send({
                     response:"request_ip_address is not authenticated"
                 });

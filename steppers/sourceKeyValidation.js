@@ -20,7 +20,7 @@ exports.validateSourceKey = function (req, res, next) {
             }
         })
         .catch((err) => {
-            res.status(err.statusCode);
+            res.status(400);
             res.send({
                response:"Error in p_validateSourceKey "+err.message
             });

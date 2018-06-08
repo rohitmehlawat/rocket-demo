@@ -34,10 +34,10 @@ exports.validateSourceKey = function (api_source_key) {
     return defer.promise;
 };
 
-exports.validateIP = function (request_ip,sourceSystemId) {
+exports.validateIP = function (sourceSystemId,request_ip) {
     var defer=Q.defer();
     console.log("in database method name -->  Validate IP  " + request_ip);
-    db.connect("p_validateHostIP 123,null")
+    db.connect("p_validateHostIP "+sourceSystemId+", ")
         .then((result)=>{
             defer.resolve(result);
         })
