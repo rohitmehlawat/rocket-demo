@@ -11,20 +11,6 @@ const http = require("../utils/http");
 exports.validateSchema=function(req,res,next){
 
     logger.log('info','inside Validate Schema');
-    var request = {
-        "txnno": "12345",
-        "paymentstatus": 1,
-        "reason": "Accepted"
-    }
-    
-    http.post('http://demo7999608.mockable.io','/clientAck',request)
-    .then((result) => {
-        console.log("Result   ---- " + JSON.stringify(result))
-    })
-    .catch((error) => {
-        console.log("Error   ---- " + error)
-    })
-
 
     var  laasData=req.body;
 
