@@ -1,6 +1,8 @@
 var laasRepository=require("../db/laasRepository");
-
+var logger = require("../utils/logger");
 exports.invokeSPParameter=function(req,res,next){
+    logger.log('info',"inside invokeSPParameter-->"+res.locals.executeInstrumentParam);
+
     if(res.locals.executeInstrumentParam) {
         const SPName=res.locals.SPName;
         const SPParameters=res.locals.SPParameters;
@@ -8,18 +10,38 @@ exports.invokeSPParameter=function(req,res,next){
         const productCode=res.locals.productCode;
         const paymentMode=res.locals.paymentMode;
 
-        laasRepository.invokeSPParamter(SPName,SPParameters,instrumentType,productCode,paymentMode)
+        var formatInstrumentParam=formatProcedureString(instrumentType);
+        var formatSPParameter=formatProcedureString(SPParameters);
+        var formatPaymentMode=formatProcedureString(paymentMode);
+
+        laasRepository.invokeSPParamter(SPName,formatSPParameter,formatInstrumentParam,productCode,formatPaymentMode)
             .then((result)=>{
 
             })
             .catch((err)=>{
-
+                logger.log("error","error in "+SPName+" "+err.message);
             });
 
     }
     next();
 
 
+
+
+};
+
+var formatProcedureString=(parameters)=>{
+    var procedureString="";
+    try {
+        for (const key in parameters) {
+            procedureString += parameters[key] + ","
+        }
+        procedureString.substring(0, procedureString.length - 1);
+    }
+    catch(err){
+        logger.log("error","error in formatProcedureString "+err.message);
+    }
+    return procedureString;
 
 
 };

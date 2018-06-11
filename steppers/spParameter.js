@@ -1,9 +1,10 @@
 var laasRepository=require("../db/laasRepository");
 
-
+var logger = require("../utils/logger");
 
 exports.setSPParameter=function(req,res,next){
 
+    logger.log('info',"inside setSPParameters");
     const laasData=req.body;
     var SPParameters={};
 

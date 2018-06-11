@@ -9,7 +9,7 @@ var logger = require("../utils/logger");
 
 exports.validateSchema=function(req,res,next){
 
-    logger.log('info','In Validate Schema');
+    logger.log('info','inside Validate Schema');
 
     var  laasData=req.body;
 
@@ -26,7 +26,7 @@ exports.validateSchema=function(req,res,next){
         next();
     }
     else{
-        logger.log('err',result.errors);
+        logger.log('error',"error in validate Schema "+result.errors);
         res.send(result.errors);
     }
 };

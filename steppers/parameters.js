@@ -1,8 +1,8 @@
 var laasRepository=require("../db/laasRepository");
-
+var logger = require("../utils/logger");
 exports.getSPParamters=function(req,res,next){
 
-    console.log("in steppers --> getSPParameters method");
+    logger.log('info',"inside getSPParameters");
 
     const productCode=res.locals.productCode;
 
@@ -10,12 +10,14 @@ exports.getSPParamters=function(req,res,next){
 
     const txnTypeId=req.body.txntypeid;
 
-    laasRepository.getParamters(ssid,txnTypeId,productCode)
+    laasRepository.getParameters(ssid,txnTypeId,productCode)
         .then((result)=>{
+            logger.log('info',"in getSPParameters Result ------>>>>>"+ JSON.stringify(result));
             res.locals.parameters=result;
             next();
         })
         .catch((err)=>{
+            logger.log('error',"error in p_getTxnParamMapper  "+err.message);
             res.status(400);
             res.send({
                 response:err.message

@@ -1,24 +1,32 @@
 var laasRepository=require("../db/laasRepository");
+var logger = require("../utils/logger");
+var key=require("../utils/key");
 exports.authenticateUser=function(req,res,next) {
-    const headerData=req.headers;
-    const userName=headerData.username;
-    const password=headerData.password;
-    const pin=headerData.pin;
 
-    console.log("in steppers --> authenticate user method");
+    logger.log('info',"inside user authentication");
+
+    const headerData=req.headers;
+    const userName=key.decrypt(headerData.username);
+    const password=key.decrypt(headerData.password);
+    const pin=key.decrypt(headerData.pin);
+
+
 
     laasRepository.authenticateUsers(userName,password,pin)
         .then((result)=>{
+            logger.log('info',"in user authentication Result ------>>>>>"+ JSON.stringify(result));
+
             if(result[0].loginStatus===1){
                 next();
             }
             else{
+                logger.log('info',"in user authentication -->invalid username password ");
                 res.status(401);
                 res.send("invalid username password");
             }
         })
         .catch((err)=>{
-            console.log("error of steppers--->"+err);
+            logger.log('error',"error in p_getSSOAuthenticationAPI "+err.message);
             res.status(400);
             res.send({
                response:err.message

@@ -1,8 +1,9 @@
-var instrumentParam=require("../steppers/instrumentParam");
-var invokeAllParameter=require("../steppers/invokeAllParameter");
+var logger = require("../utils/logger");
 exports.checkAPIParameter=function(req,res,next){
 
-    console.log("in steppers --> checkAPIParameter method");
+
+    logger.log('info',"inside checkAPIParameters");
+
     res.locals.executeInstrumentParam = false;
     const parameters=res.locals.parameters;
     parameters.forEach((parameter)=>{
