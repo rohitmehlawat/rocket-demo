@@ -1,0 +1,7 @@
+{
+    "uid": "lass_api",
+    "append": true,
+    "watch": true,
+    "script": "app.js",
+    "sourceDir": "./"
+}

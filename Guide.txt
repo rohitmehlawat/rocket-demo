@@ -1,0 +1,27 @@
+Pre-Requistes :
+
+    1. npm must be installed on machine.
+    2. Install forever using below command : 
+         npm install forever -g
+       We need to install forever globally to make sure app can run and can be monitored by it.
+
+Running application : 
+
+    1. To run the application use following command from app directory :
+         forever start forever.json
+    2. To stop already running application use following command :
+         forever stop lass_api
+
+Configuring application : 
+
+    Application can be configured using following files, depends on envoirnment:
+
+        dev.yml -- for development envoirnment 
+        sit.yml -- for SIT envoirnment
+        prod.yml -- for production
+        
+    we need to tell the app that which envoirnment we are using with following command :
+        
+        forever start forever.json --env dev         ------------ for dev.yml
+        forever start forever.json --env prod         ------------ for prod.yml
+        forever start forever.json --env sit         ------------ for sit.yml
