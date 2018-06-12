@@ -18,7 +18,6 @@ exports.invokeAllParameter=function(req,res,next){
 
             });
     }
-    next();
 
 
 

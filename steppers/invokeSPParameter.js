@@ -16,6 +16,20 @@ exports.invokeSPParameter=function(req,res,next){
 
         laasRepository.invokeSPParamter(SPName,formatSPParameter,formatInstrumentParam,productCode,formatPaymentMode)
             .then((result)=>{
+                    res.send("success");
+               /* var request = {
+                    "txnno": "12345",
+                    "paymentstatus": 1,
+                    "reason": "Accepted"
+                };
+
+                http.post('client-URL','/UpdateIncomingPayment',request)
+                    .then((result) => {
+                        console.log("Result   ---- " + JSON.stringify(result));
+                    })
+                    .catch((error) => {
+                        console.log("Error   ---- " + error);
+                    })*/
 
             })
             .catch((err)=>{

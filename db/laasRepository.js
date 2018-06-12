@@ -160,3 +160,17 @@ exports.invokeAllParameter = function (spName, spParameters) {
 
     return defer.promise;
 };
+
+exports.logRequestResponse=(requestTime,responseTime,hostIIP,ssid,txnTypeId,txnNo,responseCode,responseStatus)=>{
+  var defer=Q.defer();
+  db.connect("p_logRequestResponse "+requestTime+","+responseTime+","+hostIIP+","+ssid+","+txnTypeId+","+txnNo+","+responseCode+","+responseStatus)
+      .then((result)=>{
+          defer.resolve(result);
+      })
+      .catch((err)=>{
+          defer.reject(err);
+      });
+  return defer.promise;
+
+
+};
