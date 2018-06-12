@@ -1,5 +1,6 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
+var requestResponse=require("../utils/requestResponse");
 exports.getInstrumentType=function(req,res,next){
 
     logger.log('info',"inside instrumentParam--->"+res.locals.executeInstrumentParam);
@@ -15,6 +16,7 @@ exports.getInstrumentType=function(req,res,next){
                 res.locals.instrumentParam = result[0];
             })
             .catch((err)=>{
+                var response=requestResponse.requestResponseLog(req,res);
                 logger.log('error',"error in p_getTxnTypeIDRef  "+err.message);
                 res.status(400);
                 res.send({

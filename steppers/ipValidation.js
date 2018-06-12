@@ -1,6 +1,7 @@
 var laasRepository=require("../db/laasRepository");
 var requestIP=require("request-ip");
 var logger = require("../utils/logger");
+var requestResponse=require("../utils/requestResponse");
 exports.validateIP=function(req,res,next) {
 
     logger.log('info',"inside ip validation");
@@ -13,6 +14,7 @@ exports.validateIP=function(req,res,next) {
                 next();
             }
             else{
+                var response=requestResponse.requestResponseLog(req,res);
                 logger.log('info',"in ip validation --> request_ip_address is not authenticated ");
                 res.status(401);
                 res.send({
@@ -21,6 +23,7 @@ exports.validateIP=function(req,res,next) {
             }
         })
         .catch((err)=>{
+            var response=requestResponse.requestResponseLog(req,res);
             logger.log('error',"error in p_validateHostIP "+err.message);
             res.status(400);
             res.send({

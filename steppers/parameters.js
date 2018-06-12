@@ -1,5 +1,6 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
+var requestResponse=require("../utils/requestResponse");
 exports.getSPParamters=function(req,res,next){
 
     logger.log('info',"inside getSPParameters");
@@ -17,6 +18,7 @@ exports.getSPParamters=function(req,res,next){
             next();
         })
         .catch((err)=>{
+            var response=requestResponse.requestResponseLog(req,res);
             logger.log('error',"error in p_getTxnParamMapper  "+err.message);
             res.status(400);
             res.send({

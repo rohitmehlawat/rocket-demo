@@ -7,6 +7,7 @@ var charges=require("../schema/charges");
 var othertxnInfo=require("../schema/othertxnInfo");
 var logger = require("../utils/logger");
 const http = require("../utils/http");
+var requestResponse=require("../utils/requestResponse");
 
 exports.validateSchema=function(req,res,next){
 
@@ -27,6 +28,7 @@ exports.validateSchema=function(req,res,next){
         next();
     }
     else{
+        var response=requestResponse.requestResponseLog(req,res);
         logger.log('error',"error in validate Schema "+result.errors);
         res.send(result.errors);
     }

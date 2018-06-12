@@ -1,5 +1,6 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
+var requestResponse=require("../utils/requestResponse");
 exports.getProductCode=function(req,res,next){
 
     logger.log('info',"inside getProductCode");
@@ -11,7 +12,7 @@ exports.getProductCode=function(req,res,next){
             next();
         })
         .catch((err)=>{
-
+            var response=requestResponse.requestResponseLog(req,res);
             logger.log('error',"error in p_getProductCode  "+err.message);
             res.status(400);
             res.send({

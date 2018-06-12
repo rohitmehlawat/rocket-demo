@@ -2,6 +2,7 @@ var express=require("express");
 
 var steppers = require('../steppers');
 
+var requestResponse=require("../utils/requestResponse");
 exports.post=function(url, app){
 
     app.use(url,steppers.schemaValidator.validateSchema);
@@ -29,5 +30,7 @@ exports.post=function(url, app){
     app.use(url,steppers.invokeSPParameter.invokeSPParameter);
 
     app.use(url,steppers.invokeAllParameter.invokeAllParameter);
+
+    app.use(url,requestResponse.requestResponseLog);
 
 };

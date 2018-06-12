@@ -1,5 +1,6 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
+var requestResponse=require("../utils/requestResponse");
 exports.invokeSPParameter=function(req,res,next){
     logger.log('info',"inside invokeSPParameter-->"+res.locals.executeInstrumentParam);
 
@@ -16,23 +17,11 @@ exports.invokeSPParameter=function(req,res,next){
 
         laasRepository.invokeSPParamter(SPName,formatSPParameter,formatInstrumentParam,productCode,formatPaymentMode)
             .then((result)=>{
-                    res.send("success");
-               /* var request = {
-                    "txnno": "12345",
-                    "paymentstatus": 1,
-                    "reason": "Accepted"
-                };
 
-                http.post('client-URL','/UpdateIncomingPayment',request)
-                    .then((result) => {
-                        console.log("Result   ---- " + JSON.stringify(result));
-                    })
-                    .catch((error) => {
-                        console.log("Error   ---- " + error);
-                    })*/
 
             })
             .catch((err)=>{
+                var response=requestResponse.requestResponseLog(req,res);
                 logger.log("error","error in "+SPName+" "+err.message);
             });
 

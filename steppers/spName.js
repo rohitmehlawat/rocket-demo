@@ -1,5 +1,6 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
+var requestResponse=require("../utils/requestResponse");
 exports.getSPName=function(req,res,next){
 
     logger.log('info',"inside getSPName");
@@ -17,6 +18,7 @@ exports.getSPName=function(req,res,next){
             next();
         })
         .catch((err)=>{
+            var response=requestResponse.requestResponseLog(req,res);
             logger.log('error',"error in p_getSPName  "+err.message);
             res.status(400);
             res.send({

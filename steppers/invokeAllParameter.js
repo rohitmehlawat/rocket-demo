@@ -1,5 +1,6 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
+var requestResponse=require("../utils/requestResponse");
 exports.invokeAllParameter=function(req,res,next){
 
 
@@ -12,12 +13,13 @@ exports.invokeAllParameter=function(req,res,next){
         var formatSPParameter=formatProcedureString(SPParameters);
         laasRepository.invokeAllParameter(SPName,formatSPParameter)
             .then((result)=>{
-                res.send("success");
+
             })
             .catch((err)=>{
-
+                var response=requestResponse.requestResponseLog(req,res);
             });
     }
+    next();
 
 
 

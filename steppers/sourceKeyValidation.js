@@ -14,7 +14,7 @@ exports.validateSourceKey = function (req, res, next) {
             next();
         })
         .catch((err) => {
-            //var response=requestResponse.requestResponseLog(req,res);
+            var response=requestResponse.requestResponseLog(req,res);
             logger.log('error',"error in p_validateSourceKey "+err.message);
             res.status(400);
             res.send({
