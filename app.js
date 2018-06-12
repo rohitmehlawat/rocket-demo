@@ -4,7 +4,6 @@ const logger = require('./utils/logger');
 const helmet = require('./utils/helmet');
 const path = require('path');
 const config = require('./config/conf');
-const clientAck = require('./steppers/clientAck')
 const laasController = require('./controllers/laasController');
 const interceptor = require('./utils/responseInterceptor');
 
@@ -32,8 +31,6 @@ var server = app.listen(portNo, function () {
 });
 
 laasController.post('/txnpush', app);
-
-app.use('/clientAck', clientAck);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

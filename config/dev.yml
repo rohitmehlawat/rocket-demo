@@ -1,6 +1,6 @@
 env: dev
 app:
-    port: 3001
+    port: 3011
 db:
     host: localhost
     port: 32768

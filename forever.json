@@ -3,5 +3,7 @@
     "append": true,
     "watch": true,
     "script": "app.js",
-    "sourceDir": "./"
+    "sourceDir": "./",
+    "logFile": "/Users/princegupta/Documents/Workspace/NodeJs/rocket-demo/log/forever.log",
+    "errFile": "/Users/princegupta/Documents/Workspace/NodeJs/rocket-demo/log/forever-error.log"
 }

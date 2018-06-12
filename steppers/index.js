@@ -11,4 +11,3 @@ exports.apiParameter=require("./ApiParameter");
 exports.paymentMode=require("./paymentMode");
 exports.invokeSPParameter=require("./invokeSPParameter");
 exports.invokeAllParameter=require("./invokeAllParameter");
-exports.clientAck=require("./clientAck");
