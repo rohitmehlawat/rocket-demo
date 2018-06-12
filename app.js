@@ -6,6 +6,7 @@ const path = require('path');
 const config = require('./config/conf');
 const laasController = require('./controllers/laasController');
 const interceptor = require('./utils/responseInterceptor');
+const notifier = require('./utils/notifier');
 
 const portNo = config.get('app.port');
 
@@ -39,5 +40,4 @@ app.use(function (req, res, next) {
     next(err);
 });
 
-
-
+notifier.notify();

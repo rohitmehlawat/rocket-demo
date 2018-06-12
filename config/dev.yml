@@ -24,3 +24,6 @@ security:
                       QEEk1jTkp8ECIQCHhsoq90mWM/p9L5cQzLDWkTYoPI49Ji+Iemi2T5MRqwIgQl07
                       Es+KCn25OKXR/FJ5fu6A6A+MptABL3r8SEjlpLc=
                       -----END RSA PRIVATE KEY-----
+notifier:
+    logFile: /Users/princegupta/Documents/Workspace/NodeJs/log/forever.log
+    timeStampFile: /Users/princegupta/Documents/Workspace/NodeJs/log/timestamp.log

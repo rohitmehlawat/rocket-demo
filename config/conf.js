@@ -7,7 +7,7 @@ const yaml = require('js-yaml');
 var config = convict({
     env: {
         doc: "The application environment.",
-        format: ["prod", "dev", "test","sit"],
+        format: ["prod", "dev", "test", "sit"],
         default: "dev",
         env: "NODE_ENV",
         arg: "env"
@@ -102,6 +102,23 @@ var config = convict({
             default: "",
             env: "RSA_KEY",
             arg: "rsaKey"
+        }
+    },
+    notifier: {
+        logFile: {
+            doc: "Forever Log File Path, mention absolute path.",
+            format: String,
+            default: "",
+            env: "FE_LOG_FILE",
+            arg: "feLogFile"
+
+        },
+        timeStampFile: {
+            doc: "Timestamp Log File Path, mention absolute path.",
+            format: String,
+            default: "",
+            env: "TS_LOG_FILE",
+            arg: "tsLogFile"
         }
     }
 });

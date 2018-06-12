@@ -15,17 +15,15 @@ var ResponseCodeEnum = {
 
 
 function getDescriptionForResCode(responseCode) {
-    console.log(responseCode);
     return ResponseCodeEnum[responseCode];
 }
 
 function createResponse(responseStatus, responseCode, txnNo) {
-    console.log("dsdsdsdssfdfsadasdfasas");
     var message = getDescriptionForResCode(responseCode);
     return {
         status: responseStatus,
         code: responseCode,
-        messages: [{message}],
+        messages: [{ message }],
         txnno: txnNo
     };
 }
