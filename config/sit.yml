@@ -2,7 +2,7 @@ env: sit
 app:
     port: 3012
 db:
-    host: localhost
+    host: 192.168.1.178
     port: 32768
     name: testdb
     username: tester
@@ -24,3 +24,15 @@ security:
                       QEEk1jTkp8ECIQCHhsoq90mWM/p9L5cQzLDWkTYoPI49Ji+Iemi2T5MRqwIgQl07
                       Es+KCn25OKXR/FJ5fu6A6A+MptABL3r8SEjlpLc=
                       -----END RSA PRIVATE KEY-----
+notifier:
+    logFile: log/forever.log
+    timeStampFile: log/timestamp.log
+    emailSubject: Notifying support team for restaring app.
+    emailBody: <h1>Mail from LAAS API</h1><p>It seems laas api server is re-started.</p>
+    toEmails: recievers mail
+mail: 
+    service: gmail
+    host: smtp.gmail.com
+    username: username
+    password: password
+    fromEmail: fromEmail

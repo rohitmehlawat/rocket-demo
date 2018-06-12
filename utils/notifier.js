@@ -2,6 +2,7 @@ const lineReader = require('reverse-line-reader');
 const fs = require('fs');
 const config = require('../config/conf');
 const log = require('../utils/logger');
+const mailer = require('../utils/mailer');
 
 var notifier = {};
 notifier.notify = notify;
@@ -14,7 +15,11 @@ function notify() {
         // read all lines:
         lineReader.eachLine(logFile, function (line) {
             if (line.indexOf('SIGKILL') > -1) {
-                log.log('info',"SEND MAIL");
+                var recievers = config.get('notifier.toEmails');
+                log.log('info',"NOTIFYING " + recievers);
+                var subject = config.get('notifier.emailSubject');
+                var body = config.get('notifier.emailBody');
+                mailer.sendMail(recievers, subject, body);
                 return false;
             }
         }).then(function () {
@@ -49,7 +54,7 @@ function isNotifyRequired(logFile, timeStampFile, callback) {
 function logTimeStamp(timeStampFile, timeStamp) {
     fs.writeFile(timeStampFile, timeStamp, function (err) {
         if (err) throw err;
-        log.log('info',"Writing done");
+        log.log('info',"Writing done to timeStamp File");
     });
 }
 
