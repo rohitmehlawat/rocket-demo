@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const logger = require('./utils/logger');
 const helmet = require('./utils/helmet');
 const path = require('path');
-const config = require('./configgit /conf');
+const config = require('./config/conf');
 const clientAck = require('./steppers/clientAck')
 
 const laasController = require("./controllers/laasController");

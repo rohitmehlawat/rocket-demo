@@ -1,4 +1,4 @@
-env: dev
+env: sit
 app:
     port: 3012
 db:

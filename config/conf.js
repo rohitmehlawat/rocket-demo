@@ -7,7 +7,7 @@ const yaml = require('js-yaml');
 var config = convict({
     env: {
         doc: "The application environment.",
-        format: ["prod", "dev", "test"],
+        format: ["prod", "dev", "test","sit"],
         default: "dev",
         env: "NODE_ENV",
         arg: "env"

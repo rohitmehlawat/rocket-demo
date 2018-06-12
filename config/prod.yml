@@ -1,4 +1,4 @@
-env: dev
+env: prod
 app:
     port: 3011
 db:
