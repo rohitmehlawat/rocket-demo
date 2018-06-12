@@ -16,6 +16,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "express-interceptor": "^1.2.0",
     "express-winston": "^2.5.1",
     "forever": "^0.15.3",
     "fs": "0.0.1-security",

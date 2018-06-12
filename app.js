@@ -5,14 +5,19 @@ const helmet = require('./utils/helmet');
 const path = require('path');
 const config = require('./config/conf');
 const clientAck = require('./steppers/clientAck')
-
-const laasController = require("./controllers/laasController");
+const laasController = require('./controllers/laasController');
+const interceptor = require('./utils/responseInterceptor');
 
 const portNo = config.get('app.port');
 
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+   
+  // Add the interceptor middleware
+app.use(interceptor);
+   
 helmet.bind(app);
 
 logger.bind(
