@@ -1,6 +1,7 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
 var key=require("../utils/key");
+var responseUtil = require('../utils/responseUtil');
 exports.authenticateUser=function(req,res,next) {
 
     logger.log('info',"inside user authentication");
@@ -10,16 +11,23 @@ exports.authenticateUser=function(req,res,next) {
     var password;
     var pin;
     try {
-        username = key.decrypt(headerData.username);
-        password = key.decrypt(headerData.password);
-        pin = key.decrypt(headerData.pin);
+        if(headerData.username!==undefined && headerData.password!==undefined && headerData.pin!==undefined){
+            username = key.decrypt(headerData.username);
+            password = key.decrypt(headerData.password);
+            pin = key.decrypt(headerData.pin);
+        }
+        else{
+            logger.log('info',"error in user authentication doesnot contain the mandatory fields");
+            var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
+            res.send(response);
+            return;
+        }
+
     }
     catch(err){
-        logger.log('error',err.message);
-        res.status(400);
-        res.send({
-            response:err.message
-        });
+        logger.log('error',"error in user authentication--> "+err.message);
+        var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+        res.send(response);
         return;
     }
 
@@ -33,18 +41,14 @@ exports.authenticateUser=function(req,res,next) {
             }
             else{
                 logger.log('info',"in user authentication -->invalid username password ");
-                res.status(400);
-                res.send({
-                    response:"invalid username password"
-                });
+                var response = responseUtil.createResponse('failure','E00001', req.body.txnno);
+                res.send(response);
             }
         })
         .catch((err)=>{
             logger.log('error',"error in p_getSSOAuthenticationAPI "+err.message);
-            res.status(400);
-            res.send({
-               response:err.message
-            });
+            var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+            res.send(response);
         });
 
 };

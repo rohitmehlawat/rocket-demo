@@ -1,6 +1,7 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
-exports.invokeSPParameter=function(req,res,next){
+var responseUtil = require('../utils/responseUtil');
+exports.invokeAllParameter=function(req,res,next){
     logger.log('info',"inside invokeSPParameter-->"+res.locals.executeInstrumentParam);
 
     if(res.locals.executeInstrumentParam) {
@@ -10,32 +11,30 @@ exports.invokeSPParameter=function(req,res,next){
         const productCode=res.locals.productCode;
         const paymentParam=res.locals.paymentParam;
 
+        if(SPName===undefined || SPParameters===undefined || instrumentType ===undefined || productCode===undefined || paymentParam===undefined){
+            logger.log('info',"error in invokeAllParameter, doesnot contain the required field");
+            var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
+            res.send(response);
+            return;
+        }
+
         var formatInstrumentParam=formatProcedureString(instrumentType);
         var formatSPParameter=formatProcedureString(SPParameters);
         var formatPaymentParam=formatProcedureString(paymentParam);
 
         laasRepository.invokeSPParamter(SPName,formatSPParameter,formatInstrumentParam,productCode,formatPaymentParam)
             .then((result)=>{
-                res.json(
-                    {
-                        "status":"success",
-                        "code":200,
-                        "messages":"",
-                        "result":{
-                            "txn":{
-                                "txnno":req.body.txnno
-                            }
-                        }
-
-                    });
+                var response = responseUtil.createResponse('success','S00001', req.body.txnno);
+                res.send(response);
+                return;
 
             })
             .catch((err)=>{
                 logger.log("error","error in "+SPName+" "+err.message);
-                res.status(400);
-                res.send({
-                    response:err.message
-                });
+                var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+                res.send(response);
+                return;
+
             });
 
     }

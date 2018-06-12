@@ -1,5 +1,8 @@
 const Transport = require('winston-transport');
 const util = require('util');
+const logger=require("../utils/logger");
+const laasRepository=require("../db/laasRepository");
+var RequestResponseData=require("../model/RequestResponse");
 //
 // Inherit from `winston-transport` so we can take advantage
 // of the base functionality and `.exceptions.handle()`.
@@ -23,10 +26,23 @@ class DBTransport extends Transport {
         const responseCode = meta.res.statusCode;
         const responseStatus = meta.res.body.statusResponse;
 
-        // console.log({ level: level, msg: msg, meta: meta});
-        // console.log("------2------"+JSON.stringify(meta.req.headers));
-        // console.log("------3------"+JSON.stringify(meta.res.body));
-        // console.log("------4------"+JSON.stringify(meta.req.body));
+        var responseData=new RequestResponseData();
+        responseData.setData("requestTime","3232");
+        responseData.setData("responseTime","3223");
+        responseData.setData("hostIp",meta.req.headers.host);
+        responseData.setData("ssid","323223");
+        responseData.setData("txnTypeId",meta.req.body.txntypeid);
+        responseData.setData("txnNo",meta.req.body.txnno);
+        responseData.setData("responseCode",meta.res.statusCode);
+        responseData.setData("responseStatus", meta.res.body.status);
+        laasRepository.logRequestResponse(responseData)
+            .then((result)=>{
+
+            })
+            .catch((err)=>{
+                logger.log("error","error p_logRequestResponse "+err.message);
+
+            });
     }
   };
  //Creating instance of custom logger

@@ -163,7 +163,7 @@ exports.invokeAllParameter = function (spName, spParameters) {
 
 exports.logRequestResponse=(requestResponseData)=>{
   var defer=Q.defer();
-  db.connect("p_logRequestResponse "+requestResponseData.getData("requestTime")+","+requestResponseData.getData("responseTime")+","+requestResponseData.getData("hostIIP")+","+requestResponseData.getData("ssid")+","+requestResponseData.getData("txnTypeId")+","+requestResponseData.getData("txnNo")+","+requestResponseData.getData("responseCode")+","+requestResponseData.getData("responseStatus"))
+  db.connect("p_logRequestResponse "+requestResponseData.getData("requestTime")+","+requestResponseData.getData("responseTime")+","+requestResponseData.getData("hostIp")+","+requestResponseData.getData("ssid")+","+requestResponseData.getData("txnTypeId")+","+requestResponseData.getData("txnNo")+","+requestResponseData.getData("responseCode")+","+requestResponseData.getData("responseStatus"))
       .then((result)=>{
           defer.resolve(result);
       })

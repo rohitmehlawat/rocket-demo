@@ -1,31 +1,34 @@
 var laasRepository=require("../db/laasRepository");
 var logger = require("../utils/logger");
-exports.invokeAllParameter=function(req,res,next){
+var responseUtil = require('../utils/responseUtil');
+exports.invokeSPParameter=function(req,res,next){
 
 
 
     if(res.locals.executeInstrumentParam===false){
-        console.log("in steppers ---> invoke All Parameters");
+        console.log("in steppers ---> invoke SP Parameters");
         const SPName=res.locals.SPName;
         const SPParameters=res.locals.SPParameters;
+
+        if(SPName===undefined || SPParameters===undefined){
+            logger.log('info',"error in invokeSPParameter, doesnot contain the required field");
+            var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
+            res.send(response);
+            return;
+        }
+
 
         var formatSPParameter=formatProcedureString(SPParameters);
         laasRepository.invokeAllParameter(SPName,formatSPParameter)
             .then((result)=>{
-                res.json(
-                    {
-                        "status":"success",
-                        "code":200,
-                        "messages":"",
-                        "result":{
-                            "txn":{
-                                "txnno":req.body.txnno
-                            }
-                        }
+                var response = responseUtil.createResponse('success','S00001', req.body.txnno);
+                res.send(response);
 
-                    });
             })
             .catch((err)=>{
+                logger.log("error","error in "+SPName+" "+err.message);
+                var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+                res.send(response);
 
             });
     }

@@ -9,22 +9,21 @@ exports.validateSourceKey = function (req, res, next) {
     logger.log('info',"inside source key validation");
     var apiSourceKey="";
     try {
-       apiSourceKey = "key.decrypt(req.headers.api_source_key)";
+        if(req.headers.api_source_key!==undefined){
+            apiSourceKey = key.decrypt(req.headers.api_source_key);
+        }
+        else{
+            logger.log('info',"error in source key validation doesnot contain the api_source_key");
+            var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
+            res.send(response);
+            return;
+        }
+
     }
     catch(err){
-        logger.log('error',err.message);
-        res.json(
-            {
-                "status":"failure",
-                "code":400,
-                "messages":err.message,
-                "result":{
-                    "txn":{
-                        "txnno":req.body.txnno
-                    }
-                }
-
-        });
+        logger.log('error',"error in source key validation "+err.message);
+        var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+        res.send(response);
         return;
     }
 
@@ -36,13 +35,7 @@ exports.validateSourceKey = function (req, res, next) {
             next();
         })
         .catch((err) => {
-            console.log(err +  " ----------------------------------llllllll")
-            //var response=requestResponse.requestResponseLog(req,res);
             logger.log('error',"error in p_validateSourceKey "+err.message);
-            res.status(400);
-            // res.send({
-            //    response:"Error in p_validateSourceKey "+err.message
-            // });
             var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
             res.send(response);
         });
