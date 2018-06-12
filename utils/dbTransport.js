@@ -13,14 +13,15 @@ class DBTransport extends Transport {
         setImmediate(() => {
             this.emit('logged', msg);
          });
-        var requestTime;
-        var responseTime;
-        var hostIp = meta.req.headers.host;
-        var ssid;
-        var txnTypeId = meta.req.body.txntypeid;
-        var txnNumber = meta.req.body.txnno;
-        var responseCode = meta.res.statusCode;
-        var responseStatus = meta.res.body.statusResponse;
+
+        const requestTime="";
+        const responseTime="";
+        const hostIp = meta.req.headers.host;
+        const ssid="";
+        const txnTypeId = meta.req.body.txntypeid;
+        const txnNumber = meta.req.body.txnno;
+        const responseCode = meta.res.statusCode;
+        const responseStatus = meta.res.body.statusResponse;
 
         // console.log({ level: level, msg: msg, meta: meta});
         // console.log("------2------"+JSON.stringify(meta.req.headers));

@@ -8,7 +8,13 @@ exports.setSPParameter=function(req,res,next){
     const laasData=req.body;
     var SPParameters={};
 
-    const parameters=res.locals.parameters;
+    var parameters=res.locals.parameters;
+    try {
+        parameters.sort(sortBy("paramSno"));
+    }
+    catch(err){
+        logger.log("info","error in parameters "+err.message);
+    }
     parameters.forEach((parameter)=> {
         if(parameter.APIParameterParent!==""){
             if(parameter.DataType.contains("char")){
@@ -40,4 +46,15 @@ exports.setSPParameter=function(req,res,next){
 
 
     next();
+};
+
+var sortBy=(prop)=>{
+    return function(a,b){
+        if( a[prop] > b[prop]){
+            return 1;
+        }else if( a[prop] < b[prop] ){
+            return -1;
+        }
+        return 0;
+    }
 };

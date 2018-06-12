@@ -9,17 +9,15 @@ module.exports = interceptor(function(req, res){
       },
       
       intercept: function(body, send) {
-          console.log("rereretrtterwe");
-          console.log(interceptResponse(body));
         res.json(interceptResponse(body));
-        res.send();
       }
     };
     
-    function interceptResponse(body){
+    function interceptResponse(result){
+        var body = JSON.parse(result);
         var status = body.status;
         var code = body.code;
-        var messages = responseUtil.getDescriptionForResCode(responseUtil.ResponseCodeEnum[code]);
+        var messages = body.messages;
         var txnno = body.txnno;
         var response = {
             status: status,
@@ -33,6 +31,8 @@ module.exports = interceptor(function(req, res){
                 }
             }
         }
+        console.log(response);
+
         return response;
     }
   });

@@ -25,9 +25,9 @@ function createResponse(responseStatus, responseCode, txnNo) {
     return {
         status: responseStatus,
         code: responseCode,
-        messages: [{ message }],
+        messages: [{message}],
         txnno: txnNo
-    }
+    };
 }
 
 module.exports = util;

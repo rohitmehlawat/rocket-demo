@@ -2,7 +2,7 @@ env: dev
 app:
     port: 3011
 db:
-    host: localhost
+    host: 192.168.1.178
     port: 32768
     name: testdb
     username: tester

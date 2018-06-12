@@ -6,7 +6,8 @@ var receiver=require("../schema/receiver");
 var charges=require("../schema/charges");
 var othertxnInfo=require("../schema/othertxnInfo");
 var logger = require("../utils/logger");
-const http = require("../utils/http");
+
+const response=require("../model/response");
 
 exports.validateSchema=function(req,res,next){
 
@@ -28,6 +29,10 @@ exports.validateSchema=function(req,res,next){
     }
     else{
         logger.log('error',"error in validate Schema "+result.errors);
-        res.send(result.errors);
+        response.setName("status","failure");
+        response.setName("code",400);
+        response.setName("message",result.errors);
+        response.setName("result","");
+        res.send(response);
     }
 };

@@ -6,13 +6,25 @@ exports.authenticateUser=function(req,res,next) {
     logger.log('info',"inside user authentication");
 
     const headerData=req.headers;
-    const userName=key.decrypt(headerData.username);
-    const password=key.decrypt(headerData.password);
-    const pin=key.decrypt(headerData.pin);
+    var username;
+    var password;
+    var pin;
+    try {
+        username = key.decrypt(headerData.username);
+        password = key.decrypt(headerData.password);
+        pin = key.decrypt(headerData.pin);
+    }
+    catch(err){
+        logger.log('error',err.message);
+        res.status(400);
+        res.send({
+            response:err.message
+        });
+        return;
+    }
 
 
-
-    laasRepository.authenticateUsers(userName,password,pin)
+    laasRepository.authenticateUsers(username,password,pin)
         .then((result)=>{
             logger.log('info',"in user authentication Result ------>>>>>"+ JSON.stringify(result));
 
@@ -21,8 +33,10 @@ exports.authenticateUser=function(req,res,next) {
             }
             else{
                 logger.log('info',"in user authentication -->invalid username password ");
-                res.status(401);
-                res.send("invalid username password");
+                res.status(400);
+                res.send({
+                    response:"invalid username password"
+                });
             }
         })
         .catch((err)=>{

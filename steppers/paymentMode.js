@@ -11,7 +11,7 @@ exports.getPaymentMode=function(req,res,next){
             laasRepository.getPaymentMode(paymentModeRef)
                 .then((result)=>{
                     logger.log('info',"in paymentMode Result ------>>>>>"+ JSON.stringify(result));
-                    res.locals.paymentMode = result[0];
+                    res.locals.paymentParam = result[0];
                 })
                 .catch((err)=>{
                     logger.log('error',"error in p_getPaymenetModeIDRef  "+err.message);

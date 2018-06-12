@@ -14,7 +14,7 @@ exports.validateIP=function(req,res,next) {
             }
             else{
                 logger.log('info',"in ip validation --> request_ip_address is not authenticated ");
-                res.status(401);
+                res.status(400);
                 res.send({
                     response:"request_ip_address is not authenticated"
                 });

@@ -9,5 +9,7 @@ exports.instrumentParam=require("./instrumentParam");
 exports.spParameter=require("./spParameter");
 exports.apiParameter=require("./ApiParameter");
 exports.paymentMode=require("./paymentMode");
-exports.invokeSPParameter=require("./invokeSPParameter");
-exports.invokeAllParameter=require("./invokeAllParameter");
+exports.invokeSPParameter=require("./invokeAllParameters");
+exports.invokeAllParameter=require("./invokeSPParameter");
+
+
