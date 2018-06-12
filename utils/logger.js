@@ -4,6 +4,9 @@ const path = require('path');
 const morgan = require('morgan');
 const fs = require('fs');
 const rfs = require('rotating-file-stream');
+const dbTransport = require('../utils/dbTransport');
+const Transport = require('winston-transport');
+const util = require('util');
 
 var logger = {};
 
@@ -47,6 +50,8 @@ function bind(app, level, directory, fileName, rotatingStrategy, isPretty) {
         interval: rotatingStrategy, // rotate daily
         path: logDirectory
     })
+
+   
     // setup the logger
     app.use(expressWinston.logger({
         level: level,
@@ -60,7 +65,9 @@ function bind(app, level, directory, fileName, rotatingStrategy, isPretty) {
                 },
                 formatter: getFormatter(isPretty)
             }
-        )]
+        ),
+        dbTransport
+    ]
     }));
 
     app.use(expressWinston.errorLogger({
@@ -74,7 +81,8 @@ function bind(app, level, directory, fileName, rotatingStrategy, isPretty) {
                 },
                 formatter: getFormatter(isPretty),
             }
-        )]
+        ), 
+        dbTransport]
     }));
 
 }
