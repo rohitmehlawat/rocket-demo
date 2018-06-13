@@ -23,6 +23,7 @@ exports.validateSourceKey = function (req, res, next) {
         .then((result) => {
             logger.log('info', "in source key validation Result ------>>>>>" + JSON.stringify(result));
             res.locals.sourceSystemId = result[0].returnCode;
+            req.headers.ssid=result[0].returnCode;
             next();
         })
         .catch((err) => {

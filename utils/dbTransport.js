@@ -17,20 +17,11 @@ class DBTransport extends Transport {
             this.emit('logged', msg);
          });
 
-        const requestTime="";
-        const responseTime="";
-        const hostIp = meta.req.headers.host;
-        const ssid="";
-        const txnTypeId = meta.req.body.txntypeid;
-        const txnNumber = meta.req.body.txnno;
-        const responseCode = meta.res.statusCode;
-        const responseStatus = meta.res.body.statusResponse;
-
         var responseData=new RequestResponseData();
-        responseData.setData("requestTime","3232");
-        responseData.setData("responseTime","3223");
+        responseData.setData("requestTime","");
+        responseData.setData("responseTime","");
         responseData.setData("hostIp",meta.req.headers.host);
-        responseData.setData("ssid","323223");
+        responseData.setData("ssid",meta.req.headers.ssid);
         responseData.setData("txnTypeId",meta.req.body.txntypeid);
         responseData.setData("txnNo",meta.req.body.txnno);
         responseData.setData("responseCode",meta.res.statusCode);
