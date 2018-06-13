@@ -12,9 +12,9 @@ exports.authenticateUser=function(req,res,next) {
     var pin;
     try {
         if(headerData.username!==undefined && headerData.password!==undefined && headerData.pin!==undefined){
-            username = key.decrypt(headerData.username);
-            password = key.decrypt(headerData.password);
-            pin = key.decrypt(headerData.pin);
+            username = key.decrypt(headerData.username, res.locals.sourceSystemId);
+            password = key.decrypt(headerData.password, res.locals.sourceSystemId);
+            pin = key.decrypt(headerData.pin, res.locals.sourceSystemId);
         }
         else{
             logger.log('info',"error in user authentication doesnot contain the mandatory fields");

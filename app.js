@@ -7,6 +7,7 @@ const config = require('./config/conf');
 const laasController = require('./controllers/laasController');
 const interceptor = require('./utils/responseInterceptor');
 const notifier = require('./utils/notifier');
+const keys = require('./utils/key');
 
 const portNo = config.get('app.port');
 
@@ -14,10 +15,10 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-   
-  // Add the interceptor middleware
+
+// Add the interceptor middleware
 app.use(interceptor);
-   
+
 helmet.bind(app);
 
 logger.bind(
@@ -40,4 +41,6 @@ app.use(function (req, res, next) {
     next(err);
 });
 
-notifier.notify();
+if (config.get('notifier.enabled')) {
+    notifier.notify();
+}

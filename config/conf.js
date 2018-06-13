@@ -95,16 +95,14 @@ var config = convict({
             arg: "isPretty"
         }
     },
-    security: {
-        rsaKey: {
-            doc: "RSA Key",
-            format: String,
-            default: "",
-            env: "RSA_KEY",
-            arg: "rsaKey"
-        }
-    },
     notifier: {
+        enabled: {
+            doc: "Need to notify support team.",
+            format: Boolean,
+            default: true,
+            env: "NOTIFY_ENABLE",
+            arg: "notifyEnable"
+        },
         logFile: {
             doc: "Forever Log File Path, mention absolute path.",
             format: String,
