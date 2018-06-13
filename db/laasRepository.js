@@ -21,7 +21,7 @@ exports.validateData = function (laasData) {
 exports.validateSourceKey = function (api_source_key) {
     logger.log('info',"inside repository validate source key");
     var defer = Q.defer();
-    db.connect("p_validateSourceKey " + api_source_key)
+    db.connect("p_validateSourceKey '" + api_source_key+"'")
         .then((result) => {
             defer.resolve(result);
         })
@@ -123,7 +123,7 @@ exports.getPaymentMode = function (paymentModeRef) {
 
     var defer=Q.defer();
 
-    db.connect("p_getPaymenetModeIDRef "+paymentModeRef)
+    db.connect("p_getPaymenetModeIDRef '"+paymentModeRef+"'")
         .then((result)=>{
             defer.resolve(result);
         })
@@ -163,7 +163,7 @@ exports.invokeAllParameter = function (spName, spParameters) {
 
 exports.logRequestResponse=(requestResponseData)=>{
   var defer=Q.defer();
-  db.connect("p_logRequestResponse '"+requestResponseData.getData("requestTime")+"','"+requestResponseData.getData("responseTime")+"','"+requestResponseData.getData("hostIp")+"',"+requestResponseData.getData("ssid")+","+requestResponseData.getData("txnTypeId")+","+requestResponseData.getData("txnNo")+","+requestResponseData.getData("responseCode")+","+requestResponseData.getData("responseStatus"))
+  db.connect("p_logRequestResponse '"+requestResponseData.getData("requestTime")+"','"+requestResponseData.getData("responseTime")+"','"+requestResponseData.getData("hostIp")+"',"+requestResponseData.getData("ssid")+","+requestResponseData.getData("txnTypeId")+",'"+requestResponseData.getData("txnNo")+"','"+requestResponseData.getData("responseCode")+"',"+requestResponseData.getData("responseStatus"))
       .then((result)=>{
           defer.resolve(result);
       })
