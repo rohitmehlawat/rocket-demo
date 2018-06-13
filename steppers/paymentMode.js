@@ -6,7 +6,7 @@ exports.getPaymentMode=function(req,res,next){
     logger.log('info',"inside paymentMode--->"+res.locals.executeInstrumentParam);
     if(res.locals.executeInstrumentParam) {
 
-
+        var SPParamters=res.locals.SPParameters;
         var paymentModeRef = req.body.charges.PaymentModeParam;
         if(paymentModeRef===undefined){
             logger.log('info',"error in getPaymentMode, doesnot contain the required field paymentModeRef");
@@ -19,7 +19,13 @@ exports.getPaymentMode=function(req,res,next){
             laasRepository.getPaymentMode(paymentModeRef)
                 .then((result)=>{
                     logger.log('info',"in paymentMode Result ------>>>>>"+ JSON.stringify(result));
-                    res.locals.paymentParam = result[0];
+                    const paymentModeParam = result[0];
+                    for(var key in paymentModeParam){
+                        if(key.includes("PaymentMode")){
+                            SPParamters[key]=paymentModeParam[key];
+                        }
+                    }
+                    res.locals.SPParameters=SPParamters;
 
                 })
                 .catch((err)=>{

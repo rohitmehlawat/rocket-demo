@@ -7,34 +7,26 @@ exports.invokeAllParameter=function(req,res,next){
     if(res.locals.executeInstrumentParam) {
         const SPName=res.locals.SPName;
         const SPParameters=res.locals.SPParameters;
-        const instrumentType=res.locals.instrumentParam;
-        const productCode=res.locals.productCode;
-        const paymentParam=res.locals.paymentParam;
 
-        if(SPName===undefined || SPParameters===undefined || instrumentType ===undefined || productCode===undefined || paymentParam===undefined){
+        if(SPName===undefined || SPParameters===undefined ){
             logger.log('info',"error in invokeAllParameter, doesnot contain the required field");
             var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
             res.send(response);
             return;
         }
-
-        var formatInstrumentParam=formatProcedureString(instrumentType);
         var formatSPParameter=formatProcedureString(SPParameters);
-        var formatPaymentParam=formatProcedureString(paymentParam);
 
-        laasRepository.invokeSPParamter(SPName,formatSPParameter,formatInstrumentParam,productCode,formatPaymentParam)
+        laasRepository.invokeSPParamter(SPName,formatSPParameter)
             .then((result)=>{
                 var response = responseUtil.createResponse('success','S00001', req.body.txnno);
                 res.send(response);
                 return;
-
             })
             .catch((err)=>{
                 logger.log("error","error in "+SPName+" "+err.message);
                 var response = responseUtil.createResponse('failure','D75100', req.body.txnno);
                 res.send(response);
                 return;
-
             });
 
     }

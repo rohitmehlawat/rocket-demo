@@ -15,7 +15,7 @@ exports.checkAPIParameter=function(req,res,next){
     }
 
     parameters.forEach((parameter)=>{
-        if(parameter.APIParameter==="TxnTypeidRef" || parameter.APIParameter==="PaymentModeRef" ){
+        if(parameter.APIParameter.indexOf("TxnTypeIDRef")>-1 || parameter.APIParameter.indexOf("PaymentModeIDRef")>-1 ){
             res.locals.executeInstrumentParam = true;
             return;
         }

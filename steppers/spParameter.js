@@ -27,16 +27,34 @@ exports.setSPParameter=function(req,res,next){
     parameters.forEach((parameter)=> {
         try{
             if(parameter.APIParameterParent!==""){
-                if(parameter.DataType.contains("char")){
-                    SPParameters[parameter.SPParameter]=laasData[parameter.APIParameterParent][parameter.APIParameter]+"";
+
+                if(parameter.DataType.indexOf("datetime")>-1){
+                    if(laasData[parameter.APIParameterParent][parameter.APIParameter]!==undefined){
+                        SPParameters[parameter.SPParameter]=new Date(laasData[parameter.APIParameterParent][parameter.APIParameter]);
+                    }
+
+                }
+                else if(parameter.DataType.indexOf("char")>-1){
+                    if(laasData[parameter.APIParameterParent][parameter.APIParameter]!==undefined)
+                        SPParameters[parameter.SPParameter]=laasData[parameter.APIParameterParent][parameter.APIParameter]+"";
+                    else
+                        SPParameters[parameter.SPParameter]="";
                 }
                 else{
                     SPParameters[parameter.SPParameter]=laasData[parameter.APIParameterParent][parameter.APIParameter];
                 }
             }
             else{
-                if(parameter.DataType.contains("char")){
-                    SPParameters[parameter.SPParameter]=laasData[parameter.APIParameter]+"";
+                if(parameter.DataType.indexOf("datetime")>-1){
+                    if(laasData[parameter.APIParameter]!==undefined){
+                        SPParameters[parameter.SPParameter]=new Date(laasData[parameter.APIParameter]);
+                    }
+                }
+                if(parameter.DataType.indexOf("char")>-1){
+                    if(laasData[parameter.APIParameter]!==undefined)
+                        SPParameters[parameter.SPParameter]=laasData[parameter.APIParameter]+"";
+                    else
+                        SPParameters[parameter.SPParameter]="";
                 }
                 else{
                     SPParameters[parameter.SPParameter]=laasData[parameter.APIParameter];

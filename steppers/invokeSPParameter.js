@@ -18,6 +18,7 @@ exports.invokeSPParameter = function (req, res, next) {
 
 
         var formatSPParameter = formatProcedureString(SPParameters);
+
         laasRepository.invokeAllParameter(SPName, formatSPParameter)
             .then((result) => {
                 var response = responseUtil.createResponse('success', 'S00001', req.body.txnno);

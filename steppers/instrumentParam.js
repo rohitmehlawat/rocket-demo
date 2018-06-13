@@ -8,6 +8,7 @@ exports.getInstrumentType=function(req,res,next){
 
 
         const txnTypeId = req.body.txntypeid;
+        var SPParameters=res.locals.SPParameters;
         if(txnTypeId===undefined){
             logger.log('info',"error in getInstrumentType doesnot contain the required field txnTypeID");
             var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
@@ -17,7 +18,12 @@ exports.getInstrumentType=function(req,res,next){
         laasRepository.getInstrumentType(txnTypeId)
             .then((result)=>{
                 logger.log('info',"in instrumentParam Result ------>>>>>"+ JSON.stringify(result));
-                res.locals.instrumentParam = result[0];
+                var instrumentParam=result[0];
+                for(var key in instrumentParam){
+                    SPParameters[key]=instrumentParam[key];
+                }
+                res.locals.SPParameters=SPParameters;
+
             })
             .catch((err)=>{
                 logger.log('error',"error in p_getTxnTypeIDRef  "+err.message);
