@@ -95,16 +95,14 @@ var config = convict({
             arg: "isPretty"
         }
     },
-    security: {
-        rsaKey: {
-            doc: "RSA Key",
-            format: String,
-            default: "",
-            env: "RSA_KEY",
-            arg: "rsaKey"
-        }
-    },
     notifier: {
+        enabled: {
+            doc: "Need to notify support team.",
+            format: Boolean,
+            default: true,
+            env: "NOTIFY_ENABLE",
+            arg: "notifyEnable"
+        },
         logFile: {
             doc: "Forever Log File Path, mention absolute path.",
             format: String,
@@ -119,6 +117,71 @@ var config = convict({
             default: "",
             env: "TS_LOG_FILE",
             arg: "tsLogFile"
+        },
+        emailSubject: {
+            doc: "Subject for notifier mail..",
+            format: String,
+            default: "",
+            env: "NOTIFIER_SUB",
+            arg: "notifierSub"
+        },
+        emailBody: {
+            doc: "Email body for notifier.(HTML)",
+            format: String,
+            default: "",
+            env: "NOTIFIER_BODY",
+            arg: "notifierBody"
+        },
+        toEmails: {
+            doc: "Mention reciever emails with comma seprated .",
+            format: String,
+            default: "",
+            env: "NOTIFIER_TO_EMAILS",
+            arg: "notifierToEmails"
+        }
+    },
+    mail: {
+        service: {
+            doc: "Mention the service for mail.",
+            format: String,
+            default: "",
+            env: "EMAIL_SERVICE",
+            arg: "emailService"
+        },
+        host: {
+            doc: "Mention the host for service of mail.",
+            format: String,
+            default: "",
+            env: "EMAIL_SERVICE_HOST",
+            arg: "emailServiceHost"
+        },
+        port: {
+            doc: "The host port to bind.",
+            format: "port",
+            default: 465,
+            env: "EMAIL_SERVICE_PORT",
+            arg: "emailServicePort"
+        },
+        username: {
+            doc: "username for mailing service.",
+            format: String,
+            default: "",
+            env: "EMAIL_USERNAME",
+            arg: "eUsername"
+        },
+        password: {
+            doc: "password for mailing service.",
+            format: String,
+            default: "",
+            env: "EMAIL_PWD",
+            arg: "ePWD"
+        },
+        fromEmail: {
+            doc: "Mention sender email .",
+            format: String,
+            default: "",
+            env: "FROM_EMAIL",
+            arg: "fromEmail"
         }
     }
 });
