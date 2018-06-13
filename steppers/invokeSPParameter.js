@@ -1,53 +1,50 @@
-var laasRepository=require("../db/laasRepository");
+var laasRepository = require("../db/laasRepository");
 var logger = require("../utils/logger");
 var responseUtil = require('../utils/responseUtil');
-exports.invokeSPParameter=function(req,res,next){
+exports.invokeSPParameter = function (req, res, next) {
 
 
-
-    if(res.locals.executeInstrumentParam===false){
+    if (res.locals.executeInstrumentParam === false) {
         console.log("in steppers ---> invoke SP Parameters");
-        const SPName=res.locals.SPName;
-        const SPParameters=res.locals.SPParameters;
+        const SPName = res.locals.SPName;
+        const SPParameters = res.locals.SPParameters;
 
-        if(SPName===undefined || SPParameters===undefined){
-            logger.log('info',"error in invokeSPParameter, doesnot contain the required field");
-            var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
+        if (SPName === undefined || SPParameters === undefined) {
+            logger.log('info', "error in invokeSPParameter, doesnot contain the required field");
+            var response = responseUtil.createResponse('failure', 'E00002', req.body.txnno);
             res.send(response);
             return;
         }
 
 
-        var formatSPParameter=formatProcedureString(SPParameters);
-        laasRepository.invokeAllParameter(SPName,formatSPParameter)
-            .then((result)=>{
-                var response = responseUtil.createResponse('success','S00001', req.body.txnno);
+        var formatSPParameter = formatProcedureString(SPParameters);
+        laasRepository.invokeAllParameter(SPName, formatSPParameter)
+            .then((result) => {
+                var response = responseUtil.createResponse('success', 'S00001', req.body.txnno);
                 res.send(response);
 
             })
-            .catch((err)=>{
-                logger.log("error","error in "+SPName+" "+err.message);
-                var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+            .catch((err) => {
+                logger.log("error", "error in " + SPName + " " + err.message);
+                var response = responseUtil.createResponse('failure', 'D75100', req.body.txnno);
                 res.send(response);
 
             });
     }
 
 
-
-
 };
 
-var formatProcedureString=(SPParameters)=>{
-    var procedureString="";
+var formatProcedureString = (SPParameters) => {
+    var procedureString = "";
     try {
         for (const key in SPParameters) {
             procedureString += SPParameters[key] + ",";
         }
         procedureString.substring(0, procedureString.length - 1);
     }
-    catch(err){
-        logger.log("error","error in formatProcedureString "+err.message);
+    catch (err) {
+        logger.log("error", "error in formatProcedureString " + err.message);
     }
     return procedureString;
 

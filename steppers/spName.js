@@ -25,7 +25,7 @@ exports.getSPName=function(req,res,next){
         })
         .catch((err)=>{
             logger.log('error',"error in p_getSPName  "+err.message);
-            var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+            var response = responseUtil.createResponse('failure','D75201', req.body.txnno);
             res.send(response);
 
         });

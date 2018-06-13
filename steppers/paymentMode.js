@@ -23,8 +23,8 @@ exports.getPaymentMode=function(req,res,next){
 
                 })
                 .catch((err)=>{
-                    logger.log('error',"error in p_getPaymenttModeIDRef  "+err.message);
-                    var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+                    logger.log('error',"error in p_getPaymentModeIDRef  "+err.message);
+                    var response = responseUtil.createResponse('failure','D75100', req.body.txnno);
                     res.send(response);
                     return;
                 });

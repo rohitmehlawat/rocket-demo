@@ -20,7 +20,7 @@ exports.getProductCode=function(req,res,next){
         .catch((err)=>{
 
             logger.log('error',"error in p_getProductCode  "+err.message);
-            var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+            var response = responseUtil.createResponse('failure','D75100', req.body.txnno);
             res.send(response);
 
         });

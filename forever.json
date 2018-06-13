@@ -4,6 +4,6 @@
     "watch": true,
     "script": "app.js",
     "sourceDir": "./",
-    "logFile": "/Users/princegupta/Documents/Workspace/NodeJs/log/forever.log",
-    "errFile": "/Users/princegupta/Documents/Workspace/NodeJs/log/forever-error.log"
+    "logFile": "/log/forever.log",
+    "errFile": "/log/forever-error.log"
 }
