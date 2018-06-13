@@ -11,7 +11,7 @@ var responseUtil = require('../utils/responseUtil');
 const response=require("../model/response");
 
 exports.validateSchema=function(req,res,next){
-
+    req.headers.requestTime=new Date().getTime();
     logger.log('info','inside Validate Schema');
 
     var  laasData=req.body;
