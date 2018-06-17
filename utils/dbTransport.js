@@ -1,7 +1,6 @@
 const Transport = require('winston-transport');
 const util = require('util');
 const logger = require("../utils/logger");
-const laasRepository = require("../db/laasRepository");
 var RequestResponseData = require("../model/RequestResponse");
 //
 // Inherit from `winston-transport` so we can take advantage
@@ -26,9 +25,10 @@ class DBTransport extends Transport {
         responseData.setData("txnNo", meta.req.body.txnno);
         responseData.setData("responseCode", meta.res.statusCode);
         responseData.setData("responseStatus", meta.res.body.status);
+        const laasRepository = require("../db/laasRepository");
         laasRepository.logRequestResponse(responseData)
             .then((result) => {
-
+                logger.log("info","request response data inserted to db");
             })
             .catch((err) => {
                 logger.log("error", "error p_logRequestResponse " + err.message);

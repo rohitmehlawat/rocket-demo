@@ -92,7 +92,7 @@ exports.getParameters = function (ssid, txnTypeId, productCode) {
 
     var defer=Q.defer();
 
-    db.connect("p_getTxnParamMapper"+ssid+","+productCode+","+txnTypeId)
+    db.connect("p_getTxnParamMapper "+ssid+","+productCode+","+txnTypeId)
         .then((result)=>{
             defer.resolve(result);
         })

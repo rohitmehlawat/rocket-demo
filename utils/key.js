@@ -19,17 +19,17 @@ function encrypt(decryptedString, ssid) {
 }
 
 function loadKey(ssid){
-    logger.log('info', 'trying to load RSA private key for client with api_source_key = ' + ssid);
+    logger.log('info', 'trying to load RSA private key for client with ssid = ' + ssid);
     var doc = yaml.safeLoad(fs.readFileSync(__dirname + '/../config/rsaKeys.yml', 'utf8'));
     var keys = doc['keys'];
     for(var index = 0 ; index < keys.length; index ++){
         var key = keys[index]['key'];
         if(key['ssid'] === ssid){
-            logger.log('info', 'RSA private key for client with api_source_key = ' + ssid + ' found. Returing it.');
+            logger.log('info', 'RSA private key for client with ssid = ' + ssid + ' found. Returing it.');
             return key['privateKey'];
         }
     }
-    logger.log('error', 'trying to load RSA private key for client with api_source_key = ' + ssid + ' but not found.');
+    logger.log('error', 'trying to load RSA private key for client with ssid = ' + ssid + ' but not found.');
 }
 
 module.exports = key;
