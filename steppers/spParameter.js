@@ -9,7 +9,7 @@ exports.setSPParameter=function(req,res,next){
     logger.log('info',"inside setSPParameters");
     const laasData=req.body;
     var parameters=res.locals.parameters;
-    var SPParameters={};
+    var SPParameters=[];
     if(laasData===undefined || parameters===undefined){
         logger.log('info',"error in setSPParameters doesnot contain the required field");
         var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
@@ -24,47 +24,29 @@ exports.setSPParameter=function(req,res,next){
         var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
         res.send(response);
     }
-    parameters.forEach((parameter)=> {
-        try{
-            if(parameter.APIParameterParent!==""){
-
-                if(parameter.DataType.indexOf("datetime")>-1){
-                    if(laasData[parameter.APIParameterParent][parameter.APIParameter]!==undefined){
-                        SPParameters[parameter.SPParameter]=new Date(laasData[parameter.APIParameterParent][parameter.APIParameter]);
-                    }
-
+    parameters.forEach((parameter) => {
+        var spData = {};
+        try {
+            if (parameter.APIParameterParent !== "") {
+                if (laasData[parameter.APIParameterParent][parameter.APIParameter] !== undefined) {
+                    spData[parameter.SPParameter] = laasData[parameter.APIParameterParent][parameter.APIParameter];
                 }
-                else if(parameter.DataType.indexOf("char")>-1){
-                    if(laasData[parameter.APIParameterParent][parameter.APIParameter]!==undefined)
-                        SPParameters[parameter.SPParameter]=laasData[parameter.APIParameterParent][parameter.APIParameter]+"";
-                    else
-                        SPParameters[parameter.SPParameter]="";
-                }
-                else{
-                    SPParameters[parameter.SPParameter]=laasData[parameter.APIParameterParent][parameter.APIParameter];
-                }
+                else
+                    spData[parameter.SPParameter] = "";
             }
-            else{
-                if(parameter.DataType.indexOf("datetime")>-1){
-                    if(laasData[parameter.APIParameter]!==undefined){
-                        SPParameters[parameter.SPParameter]=new Date(laasData[parameter.APIParameter]);
-                    }
+            else {
+                if (laasData[parameter.APIParameter] !== undefined) {
+                    spData[parameter.SPParameter] = laasData[parameter.APIParameter];
                 }
-                if(parameter.DataType.indexOf("char")>-1){
-                    if(laasData[parameter.APIParameter]!==undefined)
-                        SPParameters[parameter.SPParameter]=laasData[parameter.APIParameter]+"";
-                    else
-                        SPParameters[parameter.SPParameter]="";
-                }
-                else{
-                    SPParameters[parameter.SPParameter]=laasData[parameter.APIParameter];
-                }
+                else
+                    spData[parameter.SPParameter] = "";
             }
+            spData["dataType"] = parameter.DataType;
+            SPParameters.push(spData);
         }
-        catch(err){
-            logger.log("error","error in setSPParameter -->"+err.message);
+        catch (err) {
+            logger.log("error", "error in setSPParameter -->" + err.message);
         }
-
 
 
     });

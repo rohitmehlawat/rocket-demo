@@ -39,15 +39,29 @@ exports.invokeAllParameter=function(req,res,next){
 
 var formatProcedureString=(parameters)=>{
     var procedureString="";
-    try {
-        for (const key in parameters) {
-            procedureString += parameters[key] + ","
+    parameters.forEach((parameter)=>{
+        try {
+            const dataType=parameter["dataType"];
+            for (const key in parameter) {
+                if(key!="dataType"){
+                    if(dataType.indexOf("char")>-1){
+                        procedureString += "'"+parameter[key]+"'"+ ","
+                    }
+                    else if(dataType.indexOf("datetime")>-1){
+                        procedureString += "'"+new Date(parameter[key]).toLocaleString()+"'"+ ","
+                    }
+                    else{
+                        procedureString += parameter[key] + ","
+                    }
+                }
+            }
+            procedureString.substring(0, procedureString.length - 1);
         }
-        procedureString.substring(0, procedureString.length - 1);
-    }
-    catch(err){
-        logger.log("error","error in formatProcedureString "+err.message);
-    }
+        catch(err){
+            logger.log("error","error in formatProcedureString "+err.message);
+        }
+    });
+
     return procedureString;
 
 
