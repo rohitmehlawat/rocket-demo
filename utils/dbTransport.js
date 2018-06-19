@@ -25,7 +25,7 @@ class DBTransport extends Transport {
         responseData.setData("txnTypeId", meta.req.body.txntypeid);
         responseData.setData("txnNo", meta.req.body.txnno);
         responseData.setData("responseCode", meta.res.statusCode);
-        responseData.setData("responseStatus", meta.res.body.status);
+        responseData.setData("responseStatus", (meta.res.body.status==="success")?1:0);
         const laasRepository = require("../db/laasRepository");
         laasRepository.logRequestResponse(responseData)
             .then((result) => {
