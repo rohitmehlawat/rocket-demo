@@ -2,6 +2,7 @@ const Transport = require('winston-transport');
 const util = require('util');
 const logger = require("../utils/logger");
 var RequestResponseData = require("../model/RequestResponse");
+var dateFormat=require("dateformat");
 //
 // Inherit from `winston-transport` so we can take advantage
 // of the base functionality and `.exceptions.handle()`.
@@ -17,8 +18,8 @@ class DBTransport extends Transport {
         });
 
         var responseData = new RequestResponseData();
-        responseData.setData("requestTime", new Date(meta.req.headers.requestTime));
-        responseData.setData("responseTime", new Date(meta.req.headers.requestTime + meta.responseTime));
+        responseData.setData("requestTime",  dateFormat(meta.req.headers.requestTime,"mmm dd yyyy HH:MM:ss"));
+        responseData.setData("responseTime", dateFormat(meta.req.headers.requestTime + meta.responseTime,"mmm dd yyyy HH:MM:ss"));
         responseData.setData("hostIp", meta.req.headers.host);
         responseData.setData("ssid", meta.req.headers.ssid);
         responseData.setData("txnTypeId", meta.req.body.txntypeid);
