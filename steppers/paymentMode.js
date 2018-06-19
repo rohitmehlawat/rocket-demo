@@ -9,7 +9,7 @@ exports.getPaymentMode=function(req,res,next){
         var SPParamters=res.locals.SPParameters;
         var paymentModeRef = req.body.charges.PaymentModeParam;
         if(paymentModeRef===undefined){
-            logger.log('info',"error in getPaymentMode, doesnot contain the required field paymentModeRef");
+            logger.log('error',"error in getPaymentMode, doesnot contain the required field paymentModeRef");
             req.headers.statusCode="E00002";
             var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
             res.send(response);
