@@ -18,6 +18,7 @@ exports.authenticateUser=function(req,res,next) {
         }
         else{
             logger.log('info',"error in user authentication doesnot contain the mandatory fields");
+            req.headers.statusCode="E00002";
             var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
             res.send(response);
             return;
@@ -26,6 +27,7 @@ exports.authenticateUser=function(req,res,next) {
     }
     catch(err){
         logger.log('error',"error in user authentication--> "+err.message);
+        req.headers.statusCode="E00004";
         var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
         res.send(response);
         return;
@@ -35,18 +37,28 @@ exports.authenticateUser=function(req,res,next) {
     laasRepository.authenticateUsers(username,password,pin)
         .then((result)=>{
             logger.log('info',"in user authentication Result ------>>>>>"+ JSON.stringify(result));
-
-            if(result[0].loginStatus===1){
-                next();
+            try{
+                if(result[0].loginStatus===1){
+                    next();
+                }
+                else{
+                    logger.log('info',"in user authentication -->invalid username password ");
+                    req.headers.statusCode="E00001";
+                    var response = responseUtil.createResponse('failure','E00001', req.body.txnno);
+                    res.send(response);
+                }
             }
-            else{
-                logger.log('info',"in user authentication -->invalid username password ");
+            catch(err){
+                logger.log("error","couldn't get loginStatus in the result--->"+err.message);
+                req.headers.statusCode="E00001";
                 var response = responseUtil.createResponse('failure','E00001', req.body.txnno);
                 res.send(response);
             }
+
         })
         .catch((err)=>{
             logger.log('error',"error in p_getSSOAuthenticationAPI "+err.message);
+            req.headers.statusCode="D75201";
             var response = responseUtil.createResponse('failure','D75201', req.body.txnno);
             res.send(response);
         });

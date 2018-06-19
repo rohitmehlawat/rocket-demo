@@ -10,20 +10,27 @@ exports.invokeAllParameter=function(req,res,next){
 
         if(SPName===undefined || SPParameters===undefined ){
             logger.log('info',"error in invokeAllParameter, doesnot contain the required field");
+            req.headers.statusCode="E00002";
             var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
             res.send(response);
             return;
+        }
+        else{
+            logger.log("info","SP Name-->"+SPName);
+            logger.log("info","SPParameters-->"+JSON.stringify(SPParameters));
         }
         var formatSPParameter=formatProcedureString(SPParameters);
 
         laasRepository.invokeSPParamter(SPName,formatSPParameter)
             .then((result)=>{
+                req.headers.statusCode="S00001";
                 var response = responseUtil.createResponse('success','S00001', req.body.txnno);
                 res.send(response);
                 return;
             })
             .catch((err)=>{
                 logger.log("error","error in "+SPName+" "+err.message);
+                req.headers.statusCode="D75100";
                 var response = responseUtil.createResponse('failure','D75100', req.body.txnno);
                 res.send(response);
                 return;
@@ -51,7 +58,7 @@ var formatProcedureString=(parameters)=>{
                         procedureString += "'"+new Date(parameter[key]).toLocaleString()+"'"+ ","
                     }
                     else{
-                        procedureString += parameter[key] + ","
+                        procedureString += parameter[key] + ",";
                     }
                 }
             }

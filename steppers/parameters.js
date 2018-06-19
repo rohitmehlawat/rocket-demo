@@ -14,6 +14,7 @@ exports.getSPParamters=function(req,res,next){
     if(productCode===undefined || ssid===undefined ||txnTypeId===undefined){
 
         logger.log('info',"error in getSPParameters doesnot contain the required fields");
+        req.headers.statusCode="E00002";
         var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
         res.send(response);
         return;
@@ -27,6 +28,7 @@ exports.getSPParamters=function(req,res,next){
         })
         .catch((err)=>{
             logger.log('error',"error in p_getTxnParamMapper  "+err.message);
+            req.headers.statusCode="D75100";
             var response = responseUtil.createResponse('failure','D75100', req.body.txnno);
             res.send(response);
         });

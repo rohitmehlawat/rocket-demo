@@ -9,6 +9,7 @@ exports.checkAPIParameter=function(req,res,next){
     const parameters=res.locals.parameters;
     if(parameters===undefined){
         logger.log('info',"error in checkAPIParameter doesnot contain the required field");
+        req.headers.statusCode="E00002";
         var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
         res.send(response);
         return;

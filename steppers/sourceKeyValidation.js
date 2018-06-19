@@ -14,6 +14,7 @@ exports.validateSourceKey = function (req, res, next) {
     }
     else {
         logger.log('info', "error in source key validation doesnot contain the api_source_key");
+        req.headers.statusCode="E00002";
         var response = responseUtil.createResponse('failure', 'E00002', req.body.txnno);
         res.send(response);
         return;
@@ -22,12 +23,22 @@ exports.validateSourceKey = function (req, res, next) {
     laasRepository.validateSourceKey(apiSourceKey)
         .then((result) => {
             logger.log('info', "in source key validation Result ------>>>>>" + JSON.stringify(result));
-            res.locals.sourceSystemId = result[0].returnCode;
-            req.headers.ssid=result[0].returnCode;
+            try{
+                res.locals.sourceSystemId = result[0].returnCode;
+                req.headers.ssid=result[0].returnCode;
+            }
+            catch(err){
+                logger.info("error","couldn't get SSID from the result-->"+err.message);
+                req.headers.statusCode="E00002";
+                var response = responseUtil.createResponse('failure', 'E00002', req.body.txnno);
+                res.send(response);
+            }
+
             next();
         })
         .catch((err) => {
             logger.log('error', "error in p_validateSourceKey " + err.message);
+            req.headers.statusCode="E00004";
             var response = responseUtil.createResponse('failure', 'E00004', req.body.txnno);
             res.send(response);
         });

@@ -12,6 +12,7 @@ exports.setSPParameter=function(req,res,next){
     var SPParameters=[];
     if(laasData===undefined || parameters===undefined){
         logger.log('info',"error in setSPParameters doesnot contain the required field");
+        req.headers.statusCode="E00002";
         var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
         res.send(response);
     }
@@ -21,6 +22,7 @@ exports.setSPParameter=function(req,res,next){
     }
     catch(err){
         logger.log("info","error in parameters "+err.message);
+        req.headers.statusCode="E00004";
         var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
         res.send(response);
     }
@@ -28,14 +30,18 @@ exports.setSPParameter=function(req,res,next){
         var spData = {};
         try {
             if (parameter.APIParameterParent !== "") {
-                if (laasData[parameter.APIParameterParent][parameter.APIParameter] !== undefined) {
-                    spData[parameter.SPParameter] = laasData[parameter.APIParameterParent][parameter.APIParameter];
+                if (laasData.hasOwnProperty(parameter.APIParameterParent)){
+                        var obj=laasData[parameter.APIParameterParent];
+                        if(obj.hasOwnProperty(parameter.APIParameter))
+                            spData[parameter.SPParameter] = laasData[parameter.APIParameterParent][parameter.APIParameter];
+                        else
+                            spData[parameter.SPParameter] = "";
                 }
                 else
                     spData[parameter.SPParameter] = "";
             }
             else {
-                if (laasData[parameter.APIParameter] !== undefined) {
+                if (laasData.hasOwnProperty(parameter.APIParameter)) {
                     spData[parameter.SPParameter] = laasData[parameter.APIParameter];
                 }
                 else

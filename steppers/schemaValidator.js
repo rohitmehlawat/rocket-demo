@@ -26,11 +26,11 @@ exports.validateSchema=function(req,res,next){
     var result=schemaValidator.validate(laasData,laasSchema);
 
     if(result.valid){
-        next();
+       next();
     }
     else{
         logger.log('error',"error in validate Schema "+result.errors);
-
+        req.headers.statusCode="E00002";
         var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
         res.send(response);
 

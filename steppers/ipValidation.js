@@ -9,6 +9,7 @@ exports.validateIP=function(req,res,next) {
     const reqIP=requestIP.getClientIp(req); // getting client IP
     if(ssid===undefined || reqIP===undefined){
         logger.log('info',"error in ip validation doesnot contain the ssid and request IP");
+        req.headers.statusCode="E00002";
         var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
         res.send(response);
         return;
@@ -17,18 +18,30 @@ exports.validateIP=function(req,res,next) {
     laasRepository.validateIP(ssid,reqIP)
         .then((result)=>{
             logger.log('info',"in ip validation Result ------>>>>>"+ JSON.stringify(result));
-            if(result[0].ValdationStatus===1){
-                next();
+            try{
+                if(result[0].ValdationStatus===1){
+                    next();
+                }
+                else{
+                    logger.log('info',"in ip validation --> request_ip_address is not authenticated ");
+                    req.headers.statusCode="E00001";
+                    var response = responseUtil.createResponse('failure','E00001', req.body.txnno);
+                    res.send(response);
+
+                }
             }
-            else{
-                logger.log('info',"in ip validation --> request_ip_address is not authenticated ");
+            catch(err){
+                logger.log("error","couldn't get validation status from the result -->"+err.message);
+                req.headers.statusCode="E00001";
                 var response = responseUtil.createResponse('failure','E00001', req.body.txnno);
                 res.send(response);
 
             }
+
         })
         .catch((err)=>{
             logger.log('error',"error in p_validateHostIP "+err.message);
+            req.headers.statusCode="D75100";
             var response = responseUtil.createResponse('failure','D75100', req.body.txnno);
             res.send(response);
         });
