@@ -31,21 +31,33 @@ exports.setSPParameter=function(req,res,next){
         try {
             if (parameter.APIParameterParent !== "") {
                 if (laasData.hasOwnProperty(parameter.APIParameterParent)){
-                        var obj=laasData[parameter.APIParameterParent];
-                        if(obj.hasOwnProperty(parameter.APIParameter))
-                            spData[parameter.SPParameter] = laasData[parameter.APIParameterParent][parameter.APIParameter];
-                        else
-                            spData[parameter.SPParameter] = "";
+                    logger.log("info"," APIParamter Parent-->"+parameter.APIParameterParent);
+                    var obj=laasData[parameter.APIParameterParent];
+                    logger.log("info"," APIParamter Parent object inside request-->"+JSON.stringify(obj));
+                    if (obj.hasOwnProperty(parameter.APIParameter)) {
+                        logger.log("info"," APIParamterParent-->"+parameter.APIParameterParent+" contains APIParmeter-->"+ parameter.APIParameter+" inside request object -->"+obj[parameter.APIParameter]);
+                        spData[parameter.SPParameter] = obj[parameter.APIParameter];
+                    }
+                    else {
+                        logger.log("info"," APIParamter--> "+parameter.APIParameter+" object inside request is not available-->"+obj[parameter.APIParameter]);
+                        spData[parameter.SPParameter] = "";
+                    }
+
                 }
-                else
+                else {
+                    logger.log("info"," APIParamter Parent-->"+parameter.APIParameterParent+" is not available in request object-->"+laasData[parameter.APIParameterParent]);
                     spData[parameter.SPParameter] = "";
+                }
             }
             else {
                 if (laasData.hasOwnProperty(parameter.APIParameter)) {
+                    logger.log("info"," APIParmeter-->"+ parameter.APIParameter+" inside request object -->"+laasData[parameter.APIParameter]);
                     spData[parameter.SPParameter] = laasData[parameter.APIParameter];
                 }
-                else
+                else {
+                    logger.log("info"," APIParmeter-->"+ parameter.APIParameter+" inside request object is not available -->"+laasData[parameter.APIParameter]);
                     spData[parameter.SPParameter] = "";
+                }
             }
             spData["dataType"] = parameter.DataType;
             SPParameters.push(spData);

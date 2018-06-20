@@ -49,19 +49,21 @@ var formatProcedureString=(parameters)=>{
                     if(dataType.indexOf("char")>-1){
                         procedureString += "'"+parameter[key]+"'"+ ",";
                     }
-                    else if(dataType.indexOf("datetime")>-1){
+                    else if(dataType.indexOf("datetime")>-1 && parameter[key]!==""){
                         procedureString += "'"+dateFormat(new Date(parameter[key]),"mmm dd yyyy HH:MM:ss")+"'"+ ",";
                     }
                     else{
                         procedureString += parameter[key] + ","
                     }
+                    break;
                 }
             }
-            procedureString.substring(0, procedureString.length - 1);
+
         }
         catch(err){
             logger.log("error","error in formatProcedureString "+err.message);
         }
+        procedureString.substring(0, procedureString.length - 1);
     });
 
     return procedureString;
