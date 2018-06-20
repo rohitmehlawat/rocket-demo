@@ -55,7 +55,7 @@ var formatProcedureString=(parameters)=>{
                         procedureString += "'"+parameter[key]+"'"+ ","
                     }
                     else if(dataType.indexOf("datetime")>-1){
-                        procedureString += "'"+new Date(parameter[key]).toLocaleString()+"'"+ ","
+                        procedureString += "'"+new Date(parameter[key])+"'"+ ","
                     }
                     else{
                         procedureString += parameter[key] + ",";

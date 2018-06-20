@@ -15,73 +15,35 @@ exports.getPaymentMode=function(req,res,next){
             res.send(response);
             return;
         }
-        var paymentAmount=paymentAmount(paymentModeRef);
-        if (paymentAmount > 0) {
-            laasRepository.getPaymentMode(paymentAmount)
-                .then((result)=>{
-                    logger.log('info',"in paymentMode Result ------>>>>>"+ JSON.stringify(result));
-                    try{
-                        const paymentModeParam = result[0];
-                        for(var key in paymentModeParam){
-                            if(key.includes("PaymentMode")){
-                                SPParamters[key]=paymentModeParam[key];
+        laasRepository.getPaymentMode()
+            .then((result) => {
+                logger.log('info', "in paymentMode Result ------>>>>>" + JSON.stringify(result));
+                try {
+                    const paymentModeParam = result[0];
+                    if(paymentModeRef.hasOwnProperty(paymentModeParam.PaymentModeParam) && paymentModeRef[paymentModeParam.PaymentModeParam] >0){
+                        for (var key in paymentModeParam) {
+                            if (key.indexOf("PaymentMode")>-1) {
+                                SPParamters[key] = paymentModeParam.PaymentMode;
+                                break;
                             }
                         }
-                        res.locals.SPParameters=SPParamters;
-                    }
-                    catch(err){
-                        logger.log("error","couldn't get payment param from result -->"+err.message);
                     }
 
+                    res.locals.SPParameters = SPParamters;
+                }
+                catch (err) {
+                    logger.log("error", "couldn't get payment param from result -->" + err.message);
+                }
 
-                })
-                .catch((err)=>{
-                    logger.log('error',"error in p_getPaymentModeIDRef  "+err.message);
-                    req.headers.statusCode="D75100";
-                    var response = responseUtil.createResponse('failure','D75100', req.body.txnno);
-                    res.send(response);
-                    return;
-                });
 
-        }
+            })
+            .catch((err) => {
+                logger.log('error', "error in p_getPaymentModeIDRef  " + err.message);
+                req.headers.statusCode = "D75100";
+                var response = responseUtil.createResponse('failure', 'D75100', req.body.txnno);
+                res.send(response);
+                return;
+            });
     }
   next();
-};
-
-var paymentAmount=(charges)=>{
-    if(charges!==undefined){
-        if(charges.hasOwnProperty(cstotalamt) && charges.cstotalamt>0){
-            return charges.cstotalamt;
-        }
-        else if(charges.hasOwnProperty(cqtotalamt) && charges.cqtotalamt>0){
-                return charges.cqtotalamt;
-        }
-        else if(charges.hasOwnProperty(cctotalamt) && charges.cctotalamt>0){
-            return charges.cctotalamt;
-        }
-        else if(charges.hasOwnProperty(dctotalamt) && charges.dctotalamt>0){
-            return charges.dctotalamt;
-        }
-        else if(charges.hasOwnProperty(actotalamt) && charges.actotalamt>0){
-            return charges.actotalamt;
-        }
-        else if(charges.hasOwnProperty(optotalamt) && charges.optotalamt>0){
-            return charges.optotalamt;
-        }
-        else if(charges.hasOwnProperty(kntotalamt) && charges.kntotalamt>0){
-            return charges.kntotalamt;
-        }
-        else if(charges.hasOwnProperty(dftotalamt) && charges.dftotalamt>0){
-            return charges.dftotalamt;
-        }
-        else if(charges.hasOwnProperty(wltotalamt) && charges.wltotalamt>0){
-            return charges.wltotalamt;
-        }
-        else{
-            return 0;
-        }
-    }
-    else{
-        return 0;
-    }
 };

@@ -118,12 +118,12 @@ exports.getInstrumentType = function (txnTypeId) {
     return defer.promise;
 };
 
-exports.getPaymentMode = function (paymentModeRef) {
+exports.getPaymentMode = function () {
     logger.log('info',"inside repository getPaymentMode");
 
     var defer=Q.defer();
 
-    db.connect("p_getPaymenetModeIDRef '"+paymentModeRef+"'")
+    db.connect("p_getPaymenetModeIDRef")
         .then((result)=>{
             defer.resolve(result);
         })

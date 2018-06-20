@@ -26,7 +26,7 @@ exports.post=function(url, app){
 
     app.use(url,steppers.paymentMode.getPaymentMode);
 
-    app.use(url,steppers.invokeAllParameter.invokeAllParameter);
+    //app.use(url,steppers.invokeAllParameter.invokeAllParameter);
 
     app.use(url,steppers.invokeSPParameter.invokeSPParameter);
 

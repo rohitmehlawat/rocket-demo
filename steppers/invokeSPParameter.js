@@ -4,8 +4,6 @@ var responseUtil = require('../utils/responseUtil');
 var dateFormat=require("dateformat");
 exports.invokeSPParameter = function (req, res, next) {
 
-
-    if (res.locals.executeInstrumentParam === false) {
         console.log("in steppers ---> invoke SP Parameters");
         const SPName = res.locals.SPName;
         const SPParameters = res.locals.SPParameters;
@@ -24,7 +22,7 @@ exports.invokeSPParameter = function (req, res, next) {
 
 
         var formatSPParameter = formatProcedureString(SPParameters);
-
+        logger.log("info","the final SP Parameters string is -->"+formatSPParameter);
         laasRepository.invokeAllParameter(SPName, formatSPParameter)
             .then((result) => {
                 req.headers.statusCode="S00001";
@@ -39,9 +37,6 @@ exports.invokeSPParameter = function (req, res, next) {
                 res.send(response);
 
             });
-    }
-
-
 };
 
 var formatProcedureString=(parameters)=>{
@@ -55,7 +50,7 @@ var formatProcedureString=(parameters)=>{
                         procedureString += "'"+parameter[key]+"'"+ ",";
                     }
                     else if(dataType.indexOf("datetime")>-1){
-                        procedureString += "'"+new Date(parameter[key])+"'"+ ",";
+                        procedureString += "'"+dateFormat(new Date(parameter[key]),"mmm dd yyyy HH:MM:ss")+"'"+ ",";
                     }
                     else{
                         procedureString += parameter[key] + ","
