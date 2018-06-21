@@ -16,50 +16,44 @@ exports.setSPParameter=function(req,res,next){
         var response = responseUtil.createResponse('failure','E00002', req.body.txnno);
         res.send(response);
     }
-
-    try {
-        parameters.sort(sortBy("paramSno"));
-    }
-    catch(err){
-        logger.log("info","error in parameters "+err.message);
-        req.headers.statusCode="E00004";
-        var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
-        res.send(response);
-    }
     parameters.forEach((parameter) => {
         var spData = {};
         try {
-            if (parameter.APIParameterParent !== "") {
-                if (laasData.hasOwnProperty(parameter.APIParameterParent)){
-                    logger.log("info"," APIParamter Parent-->"+parameter.APIParameterParent);
-                    var obj=laasData[parameter.APIParameterParent];
+            const parentParameter=parameter.APIParameterParent.trim();
+            const childParameter=parameter.APIParameter.trim();
+            const spParameter=parameter.SPParameter.trim();
+            if (parentParameter !== "") {
+                if (laasData.hasOwnProperty(parentParameter)){
+                    logger.log("info"," APIParamter Parent-->"+parentParameter);
+                    var obj=laasData[parentParameter];
                     logger.log("info"," APIParamter Parent object inside request-->"+JSON.stringify(obj));
-                    if (obj.hasOwnProperty(parameter.APIParameter)) {
-                        logger.log("info"," APIParamterParent-->"+parameter.APIParameterParent+" contains APIParmeter-->"+ parameter.APIParameter+" inside request object -->"+obj[parameter.APIParameter]);
-                        spData[parameter.SPParameter] = obj[parameter.APIParameter];
+                    if (obj.hasOwnProperty(childParameter)) {
+                        logger.log("info"," APIParamterParent-->"+parentParameter+" contains APIParmeter-->"+ childParameter+" inside request object -->"+obj[childParameter]);
+                        spData[spParameter] = obj[childParameter];
                     }
                     else {
-                        logger.log("info"," APIParamter--> "+parameter.APIParameter+" object inside request is not available-->"+obj[parameter.APIParameter]);
-                        spData[parameter.SPParameter] = "";
+                        logger.log("info"," APIParamter--> "+childParameter+" object inside request is not available-->"+obj[childParameter]);
+                        spData[spParameter] = "";
                     }
 
                 }
                 else {
-                    logger.log("info"," APIParamter Parent-->"+parameter.APIParameterParent+" is not available in request object-->"+laasData[parameter.APIParameterParent]);
-                    spData[parameter.SPParameter] = "";
+                    logger.log("info"," APIParamter Parent-->"+parentParameter+" is not available in request object-->"+laasData[parentParameter]);
+                    spData[spParameter] = "";
                 }
             }
             else {
-                if (laasData.hasOwnProperty(parameter.APIParameter)) {
-                    logger.log("info"," APIParmeter-->"+ parameter.APIParameter+" inside request object -->"+laasData[parameter.APIParameter]);
-                    spData[parameter.SPParameter] = laasData[parameter.APIParameter];
+                if (laasData.hasOwnProperty(childParameter)) {
+                    logger.log("info"," APIParmeter-->"+ childParameter+" inside request object -->"+laasData[childParameter]);
+                    spData[spParameter] = laasData[childParameter];
                 }
                 else {
-                    logger.log("info"," APIParmeter-->"+ parameter.APIParameter+" inside request object is not available -->"+laasData[parameter.APIParameter]);
-                    spData[parameter.SPParameter] = "";
+                    logger.log("info"," APIParmeter-->"+ childParameter+" inside request object is not available -->"+laasData[childParameter]);
+                    spData[spParameter] = "";
                 }
             }
-            spData["dataType"] = parameter.DataType;
+            spData["dataType"] = parameter.DataType.trim();
+            spData["paramSno"]=parameter.paramSno;
             SPParameters.push(spData);
         }
         catch (err) {
@@ -70,6 +64,17 @@ exports.setSPParameter=function(req,res,next){
     });
 
     res.locals.SPParameters=SPParameters;
+
+    try {
+        SPParameters.sort(sortBy("paramSno"));
+
+    }
+    catch(err){
+        logger.log("info","error in parameters "+err.message);
+        req.headers.statusCode="E00004";
+        var response = responseUtil.createResponse('failure','E00004', req.body.txnno);
+        res.send(response);
+    }
 
 
 

@@ -22,8 +22,7 @@ exports.getSPName=function(req,res,next){
         .then((result)=>{
             logger.log('info',"in getSPName Result ------>>>>>"+ JSON.stringify(result));
             try{
-                res.locals.SPName=result[0].SPName;
-
+                res.locals.SPName=result[0].SPName.trim();
             }
             catch(err){
                 logger.log("error","couldn't get SP Name from the result-->"+err.message);

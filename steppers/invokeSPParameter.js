@@ -45,7 +45,7 @@ var formatProcedureString=(parameters)=>{
         try {
             const dataType=parameter["dataType"];
             for (const key in parameter) {
-                if(key!="dataType"){
+                if(key!="dataType" && key!="paramSno"){
                     if(dataType.indexOf("char")>-1){
                         procedureString += "'"+parameter[key]+"'"+ ",";
                     }
@@ -53,12 +53,10 @@ var formatProcedureString=(parameters)=>{
                         procedureString += "'"+dateFormat(new Date(parameter[key]),"mmm dd yyyy HH:MM:ss")+"'"+ ",";
                     }
                     else{
-                        procedureString += parameter[key] + ","
+                        procedureString += parameter[key] + ",";
                     }
-                    break;
                 }
             }
-
         }
         catch(err){
             logger.log("error","error in formatProcedureString "+err.message);

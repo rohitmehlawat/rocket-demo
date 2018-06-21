@@ -22,7 +22,7 @@ exports.getInstrumentType=function(req,res,next){
                 try{
                     var instrumentParam=result[0];
                     for(var key in instrumentParam){
-                        SPParameters[key]=instrumentParam[key];
+                        SPParameters[key.trim()]=instrumentParam[key.trim()].trim();
                     }
                     res.locals.SPParameters=SPParameters;
                 }

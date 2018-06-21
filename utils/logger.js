@@ -7,6 +7,7 @@ const rfs = require('rotating-file-stream');
 const dbTransport = require('../utils/dbTransport');
 const Transport = require('winston-transport');
 const util = require('util');
+const moment = require('moment');
 
 var logger = {};
 
@@ -15,6 +16,8 @@ logger.bindForAccessLogs = bindForAccessLogs;
 logger.log = log;
 
 var logStream;
+
+const tsFormat = () => moment().format('YYYY-MM-DD hh:mm:ss').trim();
 
 var prettyFormatter = function (options) {
     return `${options.timestamp()} ${options.level.toUpperCase()} `
@@ -60,9 +63,7 @@ function bind(app, level, directory, fileName, rotatingStrategy, isPretty) {
 
                 stream: logStream,
                 json: false,
-                timestamp: function () {
-                    return new Date();
-                },
+                timestamp: tsFormat,
                 formatter: getFormatter(isPretty)
             }
         ),
@@ -76,9 +77,7 @@ function bind(app, level, directory, fileName, rotatingStrategy, isPretty) {
             {
                 stream: logStream,
                 json: false,
-                timestamp: function () {
-                    return new Date();
-                },
+                timestamp: tsFormat,
                 formatter: getFormatter(isPretty),
             }
         ), 
@@ -120,7 +119,8 @@ function log(level, message) {
         level: level,
         transports: [new winston.transports.File(
             {
-                stream: logStream
+                stream: logStream,
+                timestamp: tsFormat
             }
         )],
         exitOnError: false
