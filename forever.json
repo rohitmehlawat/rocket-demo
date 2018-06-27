@@ -1,0 +1,8 @@
+{
+    "uid": "lass_api",
+    "append": true,
+    "watch": true,
+    "script": "app.js",
+    "sourceDir": "./",
+    "logFile": "log/forever.log"
+}

@@ -1,0 +1,28 @@
+env: dev
+app:
+    port: 3011
+db:
+    host: 10.25.193.61
+    port: 5000
+    name: bo
+    username: developer
+    password: developer@123
+logger:
+    directory: log
+    file: access.log
+    level: error
+    rollingStrategy: 1d
+    isPretty: true
+notifier:
+    enabled: false
+    logFile: /log/forever.log
+    timeStampFile: /log/timestamp.log
+    emailSubject: Notifying support team for restaring app.
+    emailBody: <h1>Mail from LAAS API</h1><p>It seems laas api server is re-started.</p>
+    toEmails: recievers mail
+mail:
+    service: gmail
+    host: smtp.gmail.com
+    username: username
+    password: password
+    fromEmail: fromEmail
